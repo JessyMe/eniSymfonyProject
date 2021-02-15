@@ -11,6 +11,9 @@ security:
             lazy: true
             provider: users_in_memory
 
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
