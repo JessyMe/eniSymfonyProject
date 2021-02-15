@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,8 +49,7 @@ class Sortie
      */
     private $descriptionInfos;
 
-
-
+    
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -58,6 +59,31 @@ class Sortie
      * @ORM\ManyToOne(targetEntity=Etat::class)
      */
     private $etat;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="participants")
+     */
+    private $participants;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sortiesOrganisees")
+     */
+    private $organisateur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="sorties")
+     */
+    private $yes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
+     */
+    private $lieu;
+
+    public function __construct()
+    {
+        $this->participants = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -158,6 +184,69 @@ class Sortie
     public function setEtat(?Etat $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(User $participant): self
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
+            $participant->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(User $participant): self
+    {
+        if ($this->participants->removeElement($participant)) {
+            $participant->removeParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?User
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?User $organisateur): self
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    public function getYes(): ?Campus
+    {
+        return $this->yes;
+    }
+
+    public function setYes(?Campus $yes): self
+    {
+        $this->yes = $yes;
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Lieu $lieu): self
+    {
+        $this->lieu = $lieu;
 
         return $this;
     }

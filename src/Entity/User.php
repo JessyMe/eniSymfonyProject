@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -49,10 +51,7 @@ class User implements UserInterface
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $campus;
+
 
     /**
      * @ORM\Column(type="string")
@@ -68,6 +67,27 @@ class User implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $dateCreated;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Sortie::class, inversedBy="participants")
+     */
+    private $participants;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
+     */
+    private $sortiesOrganisees;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="etudiants")
+     */
+    private $campus;
+
+    public function __construct()
+    {
+        $this->participants = new ArrayCollection();
+        $this->sortiesOrganisees = new ArrayCollection();
+    }
 
 
 
@@ -172,21 +192,6 @@ class User implements UserInterface
         $this->password = $password;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCampus()
-    {
-        return $this->campus;
-    }
-
-    /**
-     * @param mixed $campus
-     */
-    public function setCampus($campus): void
-    {
-        $this->campus = $campus;
-    }
 
     /**
      * @return mixed
@@ -255,5 +260,71 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(Sortie $participant): self
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Sortie $participant): self
+    {
+        $this->participants->removeElement($participant);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getSortiesOrganisees(): Collection
+    {
+        return $this->sortiesOrganisees;
+    }
+
+    public function addSortiesOrganisee(Sortie $sortiesOrganisee): self
+    {
+        if (!$this->sortiesOrganisees->contains($sortiesOrganisee)) {
+            $this->sortiesOrganisees[] = $sortiesOrganisee;
+            $sortiesOrganisee->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortiesOrganisee(Sortie $sortiesOrganisee): self
+    {
+        if ($this->sortiesOrganisees->removeElement($sortiesOrganisee)) {
+            // set the owning side to null (unless already changed)
+            if ($sortiesOrganisee->getOrganisateur() === $this) {
+                $sortiesOrganisee->setOrganisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
     }
 }
