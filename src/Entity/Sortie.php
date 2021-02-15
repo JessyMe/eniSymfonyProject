@@ -47,15 +47,17 @@ class Sortie
      */
     private $descriptionInfos;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $etatSortie;
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $urlPhoto;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Etat::class)
+     */
+    private $etat;
 
 
     public function getId(): ?int
@@ -134,18 +136,7 @@ class Sortie
 
         return $this;
     }
-
-    public function getEtatSortie(): ?int
-    {
-        return $this->etatSortie;
-    }
-
-    public function setEtatSortie(?int $etatSortie): self
-    {
-        $this->etatSortie = $etatSortie;
-
-        return $this;
-    }
+    
 
     public function getUrlPhoto(): ?string
     {
@@ -155,6 +146,18 @@ class Sortie
     public function setUrlPhoto(?string $urlPhoto): self
     {
         $this->urlPhoto = $urlPhoto;
+
+        return $this;
+    }
+
+    public function getEtat(): ?Etat
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?Etat $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

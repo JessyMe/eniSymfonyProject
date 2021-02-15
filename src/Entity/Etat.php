@@ -24,15 +24,6 @@ class Etat
      */
     private $libelle;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="etat")
-     */
-    private $sorties;
-
-    public function __construct()
-    {
-        $this->sorties = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -50,34 +41,7 @@ class Etat
 
         return $this;
     }
-
-    /**
-     * @return Collection|Sortie[]
-     */
-    public function getSorties(): Collection
-    {
-        return $this->sorties;
-    }
-
-    public function addSorty(Sortie $sorty): self
-    {
-        if (!$this->sorties->contains($sorty)) {
-            $this->sorties[] = $sorty;
-            $sorty->setEtat($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSorty(Sortie $sorty): self
-    {
-        if ($this->sorties->removeElement($sorty)) {
-            // set the owning side to null (unless already changed)
-            if ($sorty->getEtat() === $this) {
-                $sorty->setEtat(null);
-            }
-        }
-
-        return $this;
-    }
 }
+
+
+
