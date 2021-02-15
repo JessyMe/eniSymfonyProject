@@ -1,0 +1,14 @@
+{% extends layout.html.twig %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block main %}
+    {{ form_start(registeForm) }}
+    {{ form_widget(registerForm) }}
+    <button type="submit">Enregistrer</button>
+    <button type="reset">Annuler</button>
+    {{ form_end(registerForm) }}
+
+{% endblock %}
+
+{% block footer %}{% endblock %}
