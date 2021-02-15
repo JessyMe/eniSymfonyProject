@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
+
         <meta charset="UTF-8">
+        <meta name="author" content="Mathieu Chenoun, Sylvain Garcia, Nicolas Champion, Jessy Mercer">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <h1>Le turquoise c'est la vie </h1>
-        <p> Hello dream team ! </p>
+
         {% block stylesheets %}
             {#{{ encore_entry_link_tags('app') }}#}
         {% endblock %}
-
+        {% block main %}
+            <p> Hello dream team ! </p>
+        {% endblock %}
         {% block javascripts %}
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
     </head>
     <body>
+        {% block header %}{% endblock %}
         {% block body %}{% endblock %}
+        {% block footer %}{% endblock %}
     </body>
 </html>
