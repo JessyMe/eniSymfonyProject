@@ -6,7 +6,7 @@ use App\Repository\SortieRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=SortieRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\SortieRepository", repositoryClass=SortieRepository::class)
  */
 class Sortie
 {
@@ -56,6 +56,7 @@ class Sortie
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $urlPhoto;
+
 
     public function getId(): ?int
     {
@@ -157,4 +158,5 @@ class Sortie
 
         return $this;
     }
+
 }
