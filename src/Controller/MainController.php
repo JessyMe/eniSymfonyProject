@@ -14,9 +14,16 @@ class MainController extends AbstractController
      */
     public function List(): Response
     {
+        $sortie = new Sortie();
+        $sortieForm = $this->createForm(ListSortieType::class,$sortie);
+        if($sortieForm->isSubmitted() && $sortieForm->isValid()){
+            return $this->render('Page/home.html.twig',["sortieList" => $sorties] );
+        }else{
+            $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
+            $sorties = $sortieRepository->findAll();
+            return $this->render('Page/home.html.twig',["sortie" => $sorties] );
+        }
 
-        $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-        $sorties = $sortieRepository->findAll();
-        return $this->render('Page/home.html.twig',["sortie" => $sorties] );
+
     }
 }
