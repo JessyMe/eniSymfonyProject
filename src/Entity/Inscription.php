@@ -24,11 +24,13 @@ class Inscription
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="inscriptions")
+     * @ORM\JoinColumn(onDelete="NO ACTION")
      */
     private $participant;
 
     /**
      * @ORM\ManyToOne(targetEntity=Sortie::class, inversedBy="inscriptions")
+     * @ORM\JoinColumn(onDelete="NO ACTION")
      */
     private $sortie;
 

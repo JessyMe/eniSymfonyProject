@@ -37,7 +37,7 @@ class User implements UserInterface
     private $nom;
 
     /**
-     * @ORM\Column(type="integer", length=10)
+     * @ORM\Column(type="string", length=15, nullable=true)
      */
     private $telephone;
 
@@ -71,6 +71,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
+     * @ORM\JoinColumn(onDelete="NO ACTION")
      */
     private $sortiesOrganisees;
 
@@ -81,6 +82,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Inscription::class, mappedBy="participant")
+     * @ORM\JoinColumn(onDelete="NO ACTION")
      */
     private $inscriptions;
 
