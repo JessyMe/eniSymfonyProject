@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Sortie;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,9 +19,6 @@ class SortieType extends AbstractType
             ->add('nbInscriptionMax')
             ->add('descriptionInfos')
             ->add('urlPhoto')
-            ->add('etat')
-            ->add('organisateur')
-            ->add('campus', TextType::class)
             ->add('lieu')
         ;
     }
