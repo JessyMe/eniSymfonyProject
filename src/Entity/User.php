@@ -79,11 +79,17 @@ class User implements UserInterface
      */
     private $campus;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Inscription::class, mappedBy="participant")
+     */
+    private $inscriptions;
+
 
     public function __construct()
     {
         $this->participants = new ArrayCollection();
         $this->sortiesOrganisees = new ArrayCollection();
+        $this->inscriptions = new ArrayCollection();
     }
 
 
@@ -298,6 +304,36 @@ class User implements UserInterface
     public function setCampus(?Campus $campus): self
     {
         $this->campus = $campus;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Inscription[]
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions[] = $inscription;
+            $inscription->setParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): self
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getParticipant() === $this) {
+                $inscription->setParticipant(null);
+            }
+        }
 
         return $this;
     }

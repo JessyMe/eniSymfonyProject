@@ -22,6 +22,16 @@ class Inscription
      */
     private $dateInscription;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="inscriptions")
+     */
+    private $participant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Sortie::class, inversedBy="inscriptions")
+     */
+    private $sortie;
+
 
 
     public function getId(): ?int
@@ -37,6 +47,30 @@ class Inscription
     public function setDateInscription(\DateTimeInterface $dateInscription): self
     {
         $this->dateInscription = $dateInscription;
+
+        return $this;
+    }
+
+    public function getParticipant(): ?User
+    {
+        return $this->participant;
+    }
+
+    public function setParticipant(?User $participant): self
+    {
+        $this->participant = $participant;
+
+        return $this;
+    }
+
+    public function getSortie(): ?Sortie
+    {
+        return $this->sortie;
+    }
+
+    public function setSortie(?Sortie $sortie): self
+    {
+        $this->sortie = $sortie;
 
         return $this;
     }
