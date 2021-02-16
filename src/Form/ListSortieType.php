@@ -13,8 +13,8 @@ class ListSortieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('campus', TextType::class, ['label'=>"Campus"])
-            ->add('Sortie', CheckboxType::class, ['label'=>"Sorties dont je suis l'organisateur/trice"])
+            ->add('yes', TextType::class, ['label'=>"Campus"])
+
         ;
     }
 

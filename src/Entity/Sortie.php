@@ -73,7 +73,7 @@ class Sortie
     /**
      * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="sorties")
      */
-    private $yes;
+    private $campus;
 
     /**
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
@@ -227,14 +227,14 @@ class Sortie
         return $this;
     }
 
-    public function getYes(): ?Campus
+    public function getCampus(): ?Campus
     {
-        return $this->yes;
+        return $this->campus;
     }
 
-    public function setYes(?Campus $yes): self
+    public function setCampus(?Campus $campus): self
     {
-        $this->yes = $yes;
+        $this->yes = $campus;
 
         return $this;
     }
