@@ -23,7 +23,8 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route ("", name="sortie_add")
+     * @Route ("", name="sortie_add",
+     *     methods={"GET"})
      */
     public function add(EntityManagerInterface $em, Request $request)
     {

@@ -2,13 +2,13 @@
 
 {% block title %}Nouvelle sortie{% endblock %}
 
-{% block body %}
+{% block main %}
     <div class="container">
         <div class="row">
             <div class="col-4">
                 <div class="form-group">
                     <div class="form-label">
-                        {{ form_start(sortieForm) }}
+                        {{ form_start(sortieForm, {'method': 'GET'}) }}
                         {{ form_widget(sortieForm) }}
                         <button class="btn btn-primary" type="submit">Enregistrer</button>
                         <button class="btn btn-dark" type="reset">Annuler</button>
