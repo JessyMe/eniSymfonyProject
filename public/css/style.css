@@ -15,3 +15,15 @@
     justify-content:center;
     width: 70vw;
 }
+
+.login {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.register {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
