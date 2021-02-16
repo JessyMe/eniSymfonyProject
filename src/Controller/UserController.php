@@ -38,4 +38,17 @@ class UserController extends AbstractController
             "registerForm" => $registerForm->createView()
         ]);
     }
+
+    /**
+     * @Route("/login", name="login")
+     */
+    public function login()
+    {
+        return $this->render('user/login.html.twig');
+    }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout(){}
 }
