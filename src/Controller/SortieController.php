@@ -45,7 +45,7 @@ class SortieController extends AbstractController
         ]);
     }
     /**
-     * @Route ("/Sortie/AfficherSortie/{id}", name="afficherSortie", requirement={"id"})
+     * @Route ("/Sortie/AfficherSortie/{id}", name="afficherSortie", requirements={"id": "\d+"})
      */
     public function AfficherSortie(): Response
     {
