@@ -3,11 +3,21 @@
 {% block title %}Inscription{% endblock %}
 
 {% block main %}
-    {{ form_start(registerForm) }}
-    {{ form_widget(registerForm) }}
-    <button type="submit">Enregistrer</button>
-    <button type="reset">Annuler</button>
-    {{ form_end(registerForm) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <div class="form-label">
+                        {{ form_start(registerForm) }}
+                        {{ form_widget(registerForm) }}
+                        <button class="btn btn-primary"type="submit">Enregistrer</button>
+                        <button class="btn btn-dark" type="reset">Annuler</button>
+                        {{ form_end(registerForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 
