@@ -1,11 +1,13 @@
-.navbar-brand{
-    font-family: 'Montserrat', sans-serif;
+.navbar-light .navbar-brand{
+    font-family: 'Abril Fatface', cursive;
+    font-size: 5vh;
     font-weight:bold;
     margin-left: 5vw;
+    color: #00e6e6;
 }
 .logo{
-    width: 1.5em;
-    margin-right: 0.3em;
+    height: 7vh;
+    margin-right: 0.3vw;
 }
 .navbar-nav{
     display: flex;
