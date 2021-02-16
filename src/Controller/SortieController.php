@@ -17,7 +17,7 @@ class SortieController extends AbstractController
 {
     public function index(): Response
     {
-        return $this->render('sortie/index.html.twig', [
+        return $this->render('sortie/afficherSortie.html.twig', [
             'controller_name' => 'SortieController',
         ]);
     }
@@ -41,6 +41,15 @@ class SortieController extends AbstractController
 
         return $this->render("sortie/add.html.twig", [
             'sortieForm'=>$sortieForm->createView()
+        ]);
+    }
+    /**
+     * @Route ("/Sortie/AfficherSortie/{id}", name="afficherSortie", requirement={"id"})
+     */
+    public function AfficherSortie(): Response
+    {
+        return $this->render('sortie/afficherSortie.html.twig', [
+            'controller_name' => 'SortieController',
         ]);
     }
 
