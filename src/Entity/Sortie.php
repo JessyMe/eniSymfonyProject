@@ -57,12 +57,14 @@ class Sortie
 
     /**
      * @ORM\ManyToOne(targetEntity=Etat::class)
+     * @ORM\JoinColumn(onDelete="NO ACTION")
      */
     private $etat;
 
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sortiesOrganisees")
+     * @ORM\JoinColumn(onDelete="NO ACTION")
      */
     private $organisateur;
 
@@ -73,6 +75,7 @@ class Sortie
 
     /**
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
+     * @ORM\JoinColumn(onDelete="NO ACTION")
      */
     private $lieu;
 
