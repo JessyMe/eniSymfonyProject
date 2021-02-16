@@ -60,10 +60,6 @@ class Sortie
      */
     private $etat;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="participants")
-     */
-    private $participants;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sortiesOrganisees")
@@ -79,11 +75,6 @@ class Sortie
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
      */
     private $lieu;
-
-    public function __construct()
-    {
-        $this->participants = new ArrayCollection();
-    }
 
 
     public function getId(): ?int
@@ -188,32 +179,6 @@ class Sortie
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getParticipants(): Collection
-    {
-        return $this->participants;
-    }
-
-    public function addParticipant(User $participant): self
-    {
-        if (!$this->participants->contains($participant)) {
-            $this->participants[] = $participant;
-            $participant->addParticipant($this);
-        }
-
-        return $this;
-    }
-
-    public function removeParticipant(User $participant): self
-    {
-        if ($this->participants->removeElement($participant)) {
-            $participant->removeParticipant($this);
-        }
-
-        return $this;
-    }
 
     public function getOrganisateur(): ?User
     {

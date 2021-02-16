@@ -24,10 +24,6 @@ class Campus
      */
     private $nomCampus;
 
-    /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="campus")
-     */
-    private $etudiants;
 
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="campus")
@@ -36,7 +32,7 @@ class Campus
 
     public function __construct()
     {
-        $this->etudiants = new ArrayCollection();
+
         $this->sorties = new ArrayCollection();
     }
 
@@ -57,35 +53,6 @@ class Campus
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getEtudiants(): Collection
-    {
-        return $this->etudiants;
-    }
-
-    public function addEtudiant(User $etudiant): self
-    {
-        if (!$this->etudiants->contains($etudiant)) {
-            $this->etudiants[] = $etudiant;
-            $etudiant->setCampus($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEtudiant(User $etudiant): self
-    {
-        if ($this->etudiants->removeElement($etudiant)) {
-            // set the owning side to null (unless already changed)
-            if ($etudiant->getCampus() === $this) {
-                $etudiant->setCampus(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Sortie[]

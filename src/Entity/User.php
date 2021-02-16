@@ -68,10 +68,6 @@ class User implements UserInterface
      */
     private $dateCreated;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Sortie::class, inversedBy="participants")
-     */
-    private $participants;
 
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
@@ -79,9 +75,10 @@ class User implements UserInterface
     private $sortiesOrganisees;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="etudiants")
+     * @ORM\ManyToOne(targetEntity=Campus::class)
      */
     private $campus;
+
 
     public function __construct()
     {
@@ -262,29 +259,6 @@ class User implements UserInterface
         // TODO: Implement eraseCredentials() method.
     }
 
-    /**
-     * @return Collection|Sortie[]
-     */
-    public function getParticipants(): Collection
-    {
-        return $this->participants;
-    }
-
-    public function addParticipant(Sortie $participant): self
-    {
-        if (!$this->participants->contains($participant)) {
-            $this->participants[] = $participant;
-        }
-
-        return $this;
-    }
-
-    public function removeParticipant(Sortie $participant): self
-    {
-        $this->participants->removeElement($participant);
-
-        return $this;
-    }
 
     /**
      * @return Collection|Sortie[]
@@ -327,4 +301,6 @@ class User implements UserInterface
 
         return $this;
     }
+
+    
 }
