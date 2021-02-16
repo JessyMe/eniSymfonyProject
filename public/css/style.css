@@ -1,0 +1,10 @@
+.navbar-brand{
+    font-family: 'Montserrat', sans-serif;
+}
+.logo{
+    width: 1.5em;
+    margin-right: 0.3em;
+}
+.navbar-nav{
+    text-align: end;
+}
