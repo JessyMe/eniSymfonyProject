@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/sortie", name="sortie")
+ * @Route("/sortie")
  */
 class SortieController extends AbstractController
 {
@@ -23,7 +23,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route ("/add", name="add")
+     * @Route ("", name="sortie_add")
      */
     public function add(EntityManagerInterface $em, Request $request)
     {
@@ -43,6 +43,19 @@ class SortieController extends AbstractController
         return $this->render("sortie/add.html.twig", [
             'sortieForm'=>$sortieForm->createView()
         ]);
+    }
+
+    /**
+     * @Route ("/delete/{id}", name="sortie_delete", requirements={"id": "\d+"})
+     */
+    public function delete (EntityManagerInterface $em, $id)
+    {
+        $sortieRepo =$this->getDoctrine()->getRepository(Sortie::class);
+        $sortie = $sortieRepo->find($id);
+        $em->remove($sortie);
+        $em->flush();
+        $this->addFlash('success', "Sortie annulée");
+        return $this->redirectToRoute("main_home");
     }
 
 }
