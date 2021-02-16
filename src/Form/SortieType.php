@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Sortie;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +20,7 @@ class SortieType extends AbstractType
                 'label'=>'Nom de la sortie :',
                 'attr' => ['class' =>'form-control']
             ])
-            ->add('datedebut', DateType::class,[
+            ->add('datedebut', DateTimeType::class,[
                 'label'=> 'Date et heure de la sortie :',
                 'widget'=>'choice',
             ])
