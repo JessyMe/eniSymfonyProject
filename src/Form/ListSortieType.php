@@ -13,7 +13,7 @@ class ListSortieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('yes', TextType::class, ['label'=>"Campus"])
+            ->add('campus', TextType::class, ['label'=>"Campus"])
 
         ;
     }
