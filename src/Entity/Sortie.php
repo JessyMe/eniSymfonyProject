@@ -212,7 +212,7 @@ class Sortie
 
     public function setCampus(?Campus $campus): self
     {
-        $this->yes = $campus;
+        $this->campus = $campus;
 
         return $this;
     }
