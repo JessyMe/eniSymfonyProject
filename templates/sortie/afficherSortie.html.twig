@@ -3,24 +3,31 @@
 {% block title %}Description de la sortie{% endblock %}
 
 {% block body %}
-
-    <div class="nom">{{ Sortie.nom }}</div>
-    <div class="dateDebut">({{ Sortie.datedebut|date("Y-m-d H:i") }})</div>
-    <div class="duree">{{ Sortie.duree }}</div>
-    <div class="dateCloture">({{ Sortie.datecloture|date("Y-m-d H:i") }})</div>
-    <div class="nbInscriptionMax">{{ Sortie.nbInscriptionMax }}</div>
-    <div class="description">{{ Sortie.duree }}</div>
-    <div class="photo">{{ Sortie.urlPhoto }}</div>
-    <div class="etat">{{ Sortie.etat }}</div>
-    <div class="organisateur">{{ Sortie.organisateur }}</div>
-    <div class="campus">{{ Sortie.$campus }}</div>
-    <div class="inscription">{{ Sortie.inscription }}</div>
-
-
-
+    <tr>
+        <th scope="col">Nom de la sortie</th>
+        <th scope="col">Date de la sortie</th>
+        <th scope="col">Clôture</th>
+        <th scope="col">Inscrits/places</th>
+        <th scope="col">Etat</th>
+        <th scope="col">Inscrit</th>
+        <th scope="col">Organisateur</th>
+        <th scope="col">Actions</th>
+    </tr>
+    {% for sortie in sorties %}
+<tr>
+    <td>{{ Sortie.nom }}</td>
+    <td>({{ Sortie.datedebut|date("Y-m-d H:i") }})</td>
+    <td>{{ Sortie.duree }}</td>
+    <td>({{ Sortie.datecloture|date("Y-m-d H:i") }})</td>
+    <td>{{ Sortie.nbInscriptionMax }}</td>
+    <td>{{ Sortie.duree }}</td>
+    <td>{{ Sortie.urlPhoto }}</td>
+    <td>{{ Sortie.etat }}</td>
+    <td>{{ Sortie.organisateur }}</td>
+    <td>{{ Sortie.$campus }}</td>
+    <td>{{ Sortie.inscription }}</td>
+</tr>
+    {% endfor %}
 {% endblock %}
-
-
-
 {% block footer %}
 {% endblock %}
