@@ -27,3 +27,8 @@
     flex-direction: row;
     justify-content: center;
 }
+.formHome{
+    display: flex;
+    height: 30vh;
+    flex-direction: row;
+}

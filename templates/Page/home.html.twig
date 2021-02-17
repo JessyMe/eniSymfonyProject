@@ -1,6 +1,54 @@
 {% extends 'layout.html.twig' %}
 
 {% block main %}
+
+{#    <form method="get" name="sortieForm">#}
+{#        <label for="campus">Campus</label>#}
+{#        <select name="campus" id="campus">#}
+{#            {% for c in campus %}#}
+{#                <option value="{{ c.nomCampus }}">{{ c.nomCampus }}</option>#}
+{#            {% endfor %}#}
+{#        </select>#}
+
+{#        <label for="name">Le nom de la sortie contient</label>#}
+{#        <input type="text" id="name">#}
+
+{#        <label for="dateDebut">Entre</label>#}
+{#        <input type="date" id="dateDebut">#}
+
+{#        <label for="dateFin">et</label>#}
+{#        <input type="date" id="dateFin">#}
+
+{#        <input type="checkbox" id="sortieOrganisateur"> Sorties dont je suis l'organisateur/trice#}
+{#        <input type="checkbox" id="sortieInscrit"> Sorties auxquelles je suis inscrit/e#}
+{#        <input type="checkbox" id="sortieNonInscrit"> Sorties auxquelles je ne suis pas inscrit/e#}
+{#        <input type="checkbox" id="sortiePassee"> Sorties passées#}
+
+{#        <button type="submit" >Rechercher</button>#}
+{#    </form>#}
+
+
+
+
+
+
+
+
+<div class="formHome">
+    {{ form_start(sortieForm{'attr'}) }}
+
+    {{ form_row(sortieForm.campus) }}
+    {{ form_row(sortieForm.nom) }}
+    {{ form_row(sortieForm.datedebut) }}
+    {{ form_row(sortieForm.datefin) }}
+    {{ form_row(sortieForm.SortieOrganisateur) }}
+    {{ form_row(sortieForm.SortieInscrit) }}
+    {{ form_row(sortieForm.SortieNonInscrit) }}
+    {{ form_row(sortieForm.SortiePassee) }}
+    <button type="submit" >Rechercher</button>
+    {{ form_end(sortieForm) }}
+</div>
+
     <table class="table">
         <thead>
         <tr>
@@ -29,5 +77,6 @@
         {% endfor %}
         </tbody>
     </table>
+
 <button type="primary-button"><a href="{{ path('sortie_add')}}"> Nouvelle sortie</a></button>
 {% endblock %}

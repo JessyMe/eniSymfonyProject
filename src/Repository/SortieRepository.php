@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+use App\Service\ListFormSortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,7 +19,12 @@ class SortieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Sortie::class);
     }
+     public function findByFormFilter($listFormSortie){
+        $campus = $listFormSortie->getCampus();
+        dump($campus);
 
+
+     }
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */
