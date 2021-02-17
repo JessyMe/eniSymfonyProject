@@ -6,6 +6,7 @@ use App\Repository\VilleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=VilleRepository::class)
@@ -32,6 +33,8 @@ class Ville
     /**
      * @ORM\OneToMany(targetEntity=Lieu::class, mappedBy="ville")
      * @ORM\JoinColumn(onDelete="NO ACTION")
+     * @Assert\Type(type="App\Entity\Lieu")
+     * @Assert\Valid
      */
     private $lieux;
 
@@ -39,8 +42,6 @@ class Ville
     {
         $this->lieux = new ArrayCollection();
     }
-
-
 
     public function getId(): ?int
     {
@@ -100,5 +101,11 @@ class Ville
 
         return $this;
     }
+
+    public function __toString()
+    {
+     return $this->nom_ville;
+    }
+
 
 }

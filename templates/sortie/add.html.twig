@@ -5,12 +5,7 @@
 
 {% block main %}
     <div class="container">
-    <div class= "text-align: center">
-        <h1> Créer une sortie </h1>
-    </div>
-
-
-         <form>
+        <h1 class= "text-align: center"> Créer une sortie </h1>
              {{ form_start(sortieForm, {'method': 'GET'}) }}
              <div class="form-row">
                  <div class="form-group col-md-6">
@@ -25,7 +20,7 @@
                      {{ form_row(sortieForm.datedebut) }}
                  </div>
                  <div class="form-group col-md-6">
-                     <label> Ville : </label>
+
                  </div>
              </di>
              <div class="form-row">
@@ -33,7 +28,7 @@
                      {{ form_row(sortieForm.datecloture)}}
                  </div>
                  <div class="form-group col-md-6">
-                     <label> Lieu : </label>
+                     {{ form_row(sortieForm.lieu.nomLieu)}}
                  </div>
              </div>
              <div class="form-row">
@@ -68,11 +63,12 @@
             </div>
             <div class="form-row">
                 <div class="form-group">
-                <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    <button class="btn btn-primary" type="submit">Enregistrer</button>
                     <button class="btn btn-dark" type="reset">Annuler</button>
                     {{ form_end(sortieForm) }}
                 </div>
             </div>
-        </form>
-     </div>
+    </div>
+        </div>
+    </div>
 {% endblock %}
