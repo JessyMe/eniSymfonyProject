@@ -47,7 +47,7 @@ class SortieType extends AbstractType
                 'attr' => ['class' =>'form-control']
             ])
             ->add('campus', EntityType::class,[
-                'choice_label' => 'nomCampus', 'placeholder'=> 'Choisir un Campus',
+                'choice_label' => 'nomCampus', 'placeholder'=> '{{sortie.campus}}',
                     'class'=>Campus::class
                 ]
             )

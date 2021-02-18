@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
+use App\Entity\User;
 use App\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,11 +30,14 @@ class SortieController extends AbstractController
     public function add(EntityManagerInterface $em, Request $request)
     {
         //$user = $this->get('security.context')->getToken()->getUser();
-        $sortie = new Sortie();
-        //$sortie->setCampus($user->);
-        $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $user = $em->getRepository(User::class)->find($this->getUser());
 
+        $sortie = new Sortie();
+        $sortie->setCampus( $user->getCampus());
+
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
+
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
             $em->persist($sortie);
