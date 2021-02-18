@@ -1,5 +1,5 @@
 {% extends 'layout.html.twig' %}
-
+{%  block style %}<link rel="stylesheet" href="{{ asset('css/style_home.css') }}">{% endblock %}
 {% block main %}
 
 {#    <form method="get" name="sortieForm">#}
@@ -77,7 +77,7 @@
         {% for sortie in sorties %}
         <tr>
             <td>{{ sortie.nom }}</td>
-            <td>{{ sortie.datecloture|date('d/m/y') }}</td>
+            <td>{{ sortie.datedebut|date('d/m/y') }}</td>
             <td>{{ sortie.datecloture|date('d/m/y') }}</td>
             <td>.../{{ sortie.nbInscriptionMax }}</td>
             <td>{{ sortie.etat.libelle }}</td>
