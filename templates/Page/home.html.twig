@@ -29,25 +29,36 @@
 
 
 
+    {{ form_start(sortieForm) }}
+    <div class="formHome row">
+        <div class="formHome col-sm-1 col-lg-5">
 
+            {{ form_row(sortieForm.campus) }}
 
+            {{ form_row(sortieForm.nom) }}
+            <div class="form-group">
+                <label for="">Entre</label>
+                {{ form_row(sortieForm.datedebut) }}
+            </div>
+            <div class="form-group">
+                <label for="">et</label>
+                {{ form_row(sortieForm.datefin) }}
+            </div>
 
+        </div>
+        <div class="formHome-col col-sm-1 col-lg-4">
+            {{ form_row(sortieForm.SortieOrganisateur) }}
+            {{ form_row(sortieForm.SortieInscrit) }}
+            {{ form_row(sortieForm.SortieNonInscrit) }}
+            {{ form_row(sortieForm.SortiePassee) }}
+        </div>
+        <div class="col-sm-1 col-lg-2">
+            <button type="submit" class="btn btn-dark">Rechercher</button>
+        </div>
 
-
-<div class="formHome">
-    {{ form_start(sortieForm{'attr'}) }}
-
-    {{ form_row(sortieForm.campus) }}
-    {{ form_row(sortieForm.nom) }}
-    {{ form_row(sortieForm.datedebut) }}
-    {{ form_row(sortieForm.datefin) }}
-    {{ form_row(sortieForm.SortieOrganisateur) }}
-    {{ form_row(sortieForm.SortieInscrit) }}
-    {{ form_row(sortieForm.SortieNonInscrit) }}
-    {{ form_row(sortieForm.SortiePassee) }}
-    <button type="submit" >Rechercher</button>
+    </div>
     {{ form_end(sortieForm) }}
-</div>
+
 
     <table class="table">
         <thead>

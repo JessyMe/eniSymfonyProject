@@ -27,8 +27,40 @@
     flex-direction: row;
     justify-content: center;
 }
-.formHome{
+.formHome.col-sm-1.col-lg-3{
     display: flex;
-    height: 30vh;
+    height: 65vh;
     flex-direction: row;
+}
+.formHome-col.col-sm-1.col-lg-4{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+.col-sm-1.col-lg-2{
+    display:flex;
+    align-items: center;
+}
+.form-group{
+    margin-right: 1vw;
+    margin-left:1vw;
+    display: flex;
+    width:100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5vh;
+
+}
+.col-form-label{
+    width:10%;
+
+}
+.form-control{
+
+    width:50%;
+}
+.form-group > label{
+    width: 20%;
 }

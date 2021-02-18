@@ -30,12 +30,11 @@ class MainController extends AbstractController
 
         if($sortieForm->isSubmitted()){
 
-            dump($ListFormSortie->getCampus());
-
+                dump($ListFormSortie);
 
                 $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
                 $sorties = $sortieRepository->findByFormFilter($ListFormSortie);
-
+                dump($sorties);
                 return $this->render('Page/home.html.twig',["sorties"=>$sorties,"campus"=>$campus,"sortieForm"=>$sortieForm->createView()]);
             }else{
                 $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);

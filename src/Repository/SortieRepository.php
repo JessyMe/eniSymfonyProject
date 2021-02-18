@@ -21,7 +21,21 @@ class SortieRepository extends ServiceEntityRepository
     }
      public function findByFormFilter($listFormSortie){
         $campus = $listFormSortie->getCampus();
+        $nom = $listFormSortie->getNom();
         dump($campus);
+        dump($nom);
+
+
+        $qb = $this->createQueryBuilder('s');
+         (!$campus?:$qb->andWhere('s.campus = :campus')->setParameter('campus',$campus));
+//         (!$nom?:$qb->andWhere($qb->expr()->like('s.nom',$nom)));
+
+
+         $query = $qb->getQuery();
+         return $query->getResult();
+
+
+
 
 
      }
