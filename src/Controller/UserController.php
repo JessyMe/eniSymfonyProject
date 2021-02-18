@@ -55,7 +55,6 @@ class UserController extends AbstractController
         $user = $em->getRepository(User::class)->find($id);
         $registerForm = $this->createForm(RegisterType::class, $user);
         $registerForm->handleRequest($request);
-//        $user->setUser(new User($this->getParameter(User::class).'/register'.$user->getUser()));
 
         if ($registerForm->isSubmitted() && $registerForm->isValid())
         {
