@@ -53,9 +53,9 @@ class SortieController extends AbstractController
      */
     public function AfficherSortie(): Response
     {
-        return $this->render('sortie/afficherSortie.html.twig', [
-            'controller_name' => 'SortieController',
-        ]);
+        $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
+        $sorties = $sortieRepository->{1};
+        return $this->render('sortie/afficherSortie.html.twig',["sorties"=>$sorties]);
     }
 
     /**
