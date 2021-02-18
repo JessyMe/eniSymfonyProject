@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Entity\User;
 use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +22,8 @@ class UserController extends AbstractController
     {
         $user = new User();
         $registerForm = $this->createForm(RegisterType::class, $user);
-            $user->setDateCreated(new \DateTime());
+        $user->setDateCreated(new \DateTime());
+        $user->setRoles(['ROLE_USER']);
 
         $registerForm->handleRequest($request);
         if ($registerForm->isSubmitted() && $registerForm->isValid())
@@ -32,23 +34,27 @@ class UserController extends AbstractController
 
             $em->persist($user);
             $em->flush();
+
+            $this->addFlash('success', 'Inscription réalisée avec succés !');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('user/register.html.twig', [
-            "registerForm" => $registerForm->createView()
+            "registerForm" => $registerForm->createView(),
+
         ]);
     }
 
-    /**
-     * @Route("/login", name="login")
-     */
-    public function login(): Response
-    {
-        return $this->render('user/login.html.twig');
-    }
-
-    /**
-     * @Route("/logout", name="logout")
-     */
-    public function logout(){}
+//    /**
+//     * @Route("/login", name="login")
+//     */
+//    public function login(): Response
+//    {
+//        return $this->render('security/login.html.twig');
+//    }
+//
+//    /**
+//     * @Route("/logout", name="logout")
+//     */
+//    public function logout(){}
 }
