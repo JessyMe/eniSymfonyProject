@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Entity\Ville;
+use App\Form\LieuType;
 use App\Form\SortieType;
+use App\Form\VilleType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,8 +28,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route ("", name="sortie_add",
-     *     methods={"GET"})
+     * @Route ("", name="sortie_add")
      */
     public function add(EntityManagerInterface $em, Request $request)
     {
@@ -33,14 +36,29 @@ class SortieController extends AbstractController
         $user = $em->getRepository(User::class)->find($this->getUser());
 
         $sortie = new Sortie();
+        $lieu = new Lieu();
+        $ville = new Ville();
+
         $sortie->setCampus( $user->getCampus());
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $villeForm = $this->createForm(VilleType::class, $ville);
+        $lieuForm = $this->createForm(LieuType::class, $lieu);
         $sortieForm->handleRequest($request);
+        $villeForm->handleRequest($request);
+        $lieuForm->handleRequest($request);
+
         dump($sortieForm);
 
-        if ($sortieForm->isSubmitted() && $sortieForm->isValid())
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid() && $villeForm->isSubmitted() && $villeForm->isValid() && $lieuForm->isSubmitted() && $lieuForm->isValid())
         {
+            $sortie->setOrganisateur($user);
+            $em->persist($ville);
+            $em->flush();
+            $lieu->setVille($ville);
+            $em->persist($lieu);
+            $em->flush();
+            $sortie->setLieu($lieu);
             $em->persist($sortie);
             $em->flush();
 
@@ -49,7 +67,9 @@ class SortieController extends AbstractController
         }
 
         return $this->render("sortie/add.html.twig", [
-            'sortieForm'=>$sortieForm->createView()
+            'sortieForm'=>$sortieForm->createView(),
+            'lieuForm'=>$lieuForm->createView(),
+            'villeForm'=>$villeForm->createView(),
         ]);
     }
     /**

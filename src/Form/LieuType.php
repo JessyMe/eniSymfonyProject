@@ -16,10 +16,11 @@ class LieuType extends AbstractType
     {
         $builder
 
+            ->add('nomLieu')
             ->add('rue')
             ->add('latitude')
             ->add('longitude')
-            ->add('ville', VilleType::class)
+
         ;
     }
 

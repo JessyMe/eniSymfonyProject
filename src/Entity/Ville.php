@@ -33,8 +33,7 @@ class Ville
     /**
      * @ORM\OneToMany(targetEntity=Lieu::class, mappedBy="ville")
      * @ORM\JoinColumn(onDelete="NO ACTION")
-     * @Assert\Type(type="App\Entity\Lieu")
-     * @Assert\Valid
+     *
      */
     private $lieux;
 

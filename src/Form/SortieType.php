@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Campus;
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -46,13 +47,18 @@ class SortieType extends AbstractType
                 'label'=>'Description et infos :',
                 'attr' => ['class' =>'form-control']
             ])
+            ->add('etat', EntityType::class, [
+                'choice_label'=> 'libelle',
+                'placeholder' => 'choisir etat',
+                'class'=>Etat::class
+            ])
             ->add('campus', EntityType::class,[
                 'choice_label' => 'nomCampus', 'placeholder'=> '{{sortie.campus}}',
                     'class'=>Campus::class
                 ]
-            )
+            );
 
-            ->add('lieu', LieuType::class)
+           // ->add('lieu', LieuType::class)
             /*->add('lieu', EntityType::class,[
                 'choice_label'=> 'nomLieu', 'placeholder'=>'choisir un lieu',
                 'class'=>Lieu::class,
@@ -60,8 +66,8 @@ class SortieType extends AbstractType
                 'class'=>Lieu::class,
             ])*/
 
-            ->add('EnregistrerBrouillon', SubmitType::class)
-            ->add('Annuler', ResetType::class);
+            //->add('EnregistrerBrouillon', SubmitType::class)
+           // ->add('Annuler', ResetType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
