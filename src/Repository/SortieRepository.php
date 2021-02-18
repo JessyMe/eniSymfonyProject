@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+use App\Service\ListFormSortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,7 +19,34 @@ class SortieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Sortie::class);
     }
+     public function findByFormFilter($listFormSortie){
+        $campus = $listFormSortie->getCampus();
+        $nom = $listFormSortie->getNom();
+        $datedebut = $listFormSortie->getdatedebut();
+        $datefin = $listFormSortie->getdatefin();
+        $sortieOrganisateur = $listFormSortie->getSortieOrganisateur();
+        dump($campus);
+        dump($nom);
 
+
+        $qb = $this->createQueryBuilder('s');
+        if($campus) $qb->andWhere('s.campus = :campus')->setParameter('campus',$campus);
+        if($nom) $qb->andWhere('s.nom LIKE :nom')->setParameter('nom','%'.$nom.'%');
+        if($datedebut && $datefin) $qb->andWhere('s.datedebut BETWEEN :datedebut AND :datefin')
+                                        ->setParameter('datedebut',$datedebut)
+                                        ->setParameter('datefin',$datefin);
+
+
+
+         $query = $qb->getQuery();
+         dump($query);
+         return $query->getResult();
+
+
+
+
+
+     }
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */

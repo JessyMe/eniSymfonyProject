@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
 use App\Entity\User;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -46,7 +48,9 @@ class RegisterType extends AbstractType
                 'first_options'  => ['label' => 'Mot de passe', 'attr' => ['class' =>'form-control']],
                 'second_options' => ['label' => 'Confirmer', 'attr' => ['class' =>'form-control']],
                 ])
-            ->add('campus', IntegerType::class, [
+            ->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                'choice_label' => 'nomCampus',
                 'label' => 'Campus : ',
                 'attr' => ['class' =>'form-control']
             ])

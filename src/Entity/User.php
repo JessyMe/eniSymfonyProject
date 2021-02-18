@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -22,7 +23,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=25)
+     * @ORM\Column(type="string", length=25, unique=true)
      */
     private $pseudo;
 
@@ -42,12 +43,14 @@ class User implements UserInterface
     private $telephone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var String The hashed password
+     * @ORM\Column(type="string")
+     * @Assert\Length(min=8, minMessage="Le mot de passe doit contenir au moins 8 caractères avec une majuscule, une minuscule et un nombre!")
      */
     private $password;
 
@@ -59,9 +62,9 @@ class User implements UserInterface
     private $photo;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="json")
      */
-    private $role;
+    private $roles;
 
     /**
      * @ORM\Column(type="datetime")
@@ -184,17 +187,19 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getPassword()
+    public function getPassword(): string
     {
-        return $this->password;
+        return (string) $this->password;
     }
 
     /**
      * @param mixed $password
      */
-    public function setPassword($password): void
+    public function setPassword($password): self
     {
         $this->password = $password;
+
+        return $this;
     }
 
 
@@ -217,17 +222,21 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getRole()
+    public function getRoles()
     {
-        return $this->role;
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
     }
 
     /**
-     * @param mixed $role
+     * @param mixed $roles
      */
-    public function setRole($role): void
+    public function setRoles($roles): self
     {
-        $this->role = $role;
+        $this->roles = $roles;
+
+        return $this;
     }
 
     /**
@@ -238,6 +247,7 @@ class User implements UserInterface
         return $this->dateCreated;
     }
 
+
     /**
      * @param mixed $dateCreated
      */
@@ -246,20 +256,14 @@ class User implements UserInterface
         $this->dateCreated = $dateCreated;
     }
 
-
-    public function getRoles()
+    public function getUsername(): string
     {
-        // TODO: Implement getRoles() method.
+        return (String) $this->email;
     }
 
     public function getSalt()
     {
         // TODO: Implement getSalt() method.
-    }
-
-    public function getUsername()
-    {
-        // TODO: Implement getUsername() method.
     }
 
     public function eraseCredentials()
