@@ -1,0 +1,43 @@
+#container {
+    alignment: center;
+    height:1000px;
+    width: 1500px;
+    align-items: center;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 120px 120px 120px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 50px);
+}
+
+div > div {
+    box-sizing: border-box;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    min-height: 300px;
+    min-width: 900px;
+    font-size: 1.7em;
+
+}
+
+
+select {
+    font-size: 20px;
+}
+
+.row {
+    margin-top: 0px;
+}
