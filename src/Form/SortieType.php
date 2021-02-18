@@ -51,7 +51,20 @@ class SortieType extends AbstractType
                 'label'=>'Description et infos :',
                 'attr' => ['class' =>'form-control']
             ])
+            ->add('campus', EntityType::class,[
+                'choice_label' => 'nomCampus', 'placeholder'=> 'Choisir un Campus',
+                    'class'=>Campus::class
+                ]
+            )
+
             ->add('lieu', LieuType::class)
+            /*->add('lieu', EntityType::class,[
+                'choice_label'=> 'nomLieu', 'placeholder'=>'choisir un lieu',
+                'class'=>Lieu::class,
+                'choice_label'=> 'ville', 'placeholder'=>'choisir une ville',
+                'class'=>Lieu::class,
+            ])*/
+
             ->add('EnregistrerBrouillon', SubmitType::class)
             ->add('Annuler', ResetType::class);
     }
@@ -60,6 +73,7 @@ class SortieType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Sortie::class,
+
         ]);
     }
 }

@@ -28,11 +28,10 @@ class SortieController extends AbstractController
      */
     public function add(EntityManagerInterface $em, Request $request)
     {
-        //$this->get('security.context')->getToken()->getUser();
+        //$user = $this->get('security.context')->getToken()->getUser();
         $sortie = new Sortie();
-       // $sortie->setCampus();
+        //$sortie->setCampus($user->);
         $sortieForm = $this->createForm(SortieType::class, $sortie);
-
 
         $sortieForm->handleRequest($request);
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
