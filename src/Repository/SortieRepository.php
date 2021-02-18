@@ -19,14 +19,14 @@ class SortieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Sortie::class);
     }
-     public function findByFormFilter($listFormSortie){
+     public function findByFormFilter($listFormSortie, $userLog){
         $campus = $listFormSortie->getCampus();
         $nom = $listFormSortie->getNom();
         $datedebut = $listFormSortie->getdatedebut();
         $datefin = $listFormSortie->getdatefin();
         $sortieOrganisateur = $listFormSortie->getSortieOrganisateur();
-        dump($campus);
-        dump($nom);
+        dump($userLog);
+
 
 
         $qb = $this->createQueryBuilder('s');
@@ -35,6 +35,7 @@ class SortieRepository extends ServiceEntityRepository
         if($datedebut && $datefin) $qb->andWhere('s.datedebut BETWEEN :datedebut AND :datefin')
                                         ->setParameter('datedebut',$datedebut)
                                         ->setParameter('datefin',$datefin);
+        if($userLog) $qb->andWhere('s.organisateur = :userLog')->setParameter('userLog',$userLog);
 
 
 

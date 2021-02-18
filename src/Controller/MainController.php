@@ -24,6 +24,9 @@ class MainController extends AbstractController
         $campusRepository = $this->getDoctrine()->getRepository(Campus::class);
         $campus = $campusRepository->findAll();
 
+
+
+
         $ListFormSortie = new ListFormSortie();
         $sortieForm = $this->createForm(ListSortieType::class,$ListFormSortie);
         $sortieForm->handleRequest($request);
@@ -32,8 +35,10 @@ class MainController extends AbstractController
 
                 dump($ListFormSortie);
 
+                $userLog = $this->getUser();
+
                 $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-                $sorties = $sortieRepository->findByFormFilter($ListFormSortie);
+                $sorties = $sortieRepository->findByFormFilter($ListFormSortie, $userLog);
                 dump($sorties);
                 return $this->render('Page/home.html.twig',["sorties"=>$sorties,"campus"=>$campus,"sortieForm"=>$sortieForm->createView()]);
             }else{
