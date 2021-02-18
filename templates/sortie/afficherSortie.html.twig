@@ -1,33 +1,25 @@
 {% extends 'layout.html.twig' %}
+{% form_theme 'AfficherSortie.CSS' %}
+{% block title %}Afficher une Sortie{% endblock %}
 
-{% block title %}Description de la sortie{% endblock %}
 
-{% block body %}
-    <tr>
-        <th scope="col">Nom de la sortie</th>
-        <th scope="col">Date de la sortie</th>
-        <th scope="col">Clôture</th>
-        <th scope="col">Inscrits/places</th>
-        <th scope="col">Etat</th>
-        <th scope="col">Inscrit</th>
-        <th scope="col">Organisateur</th>
-        <th scope="col">Actions</th>
-    </tr>
-    {% for sortie in sorties %}
-<tr>
-    <td>{{ Sortie.nom }}</td>
-    <td>({{ Sortie.datedebut|date("Y-m-d H:i") }})</td>
-    <td>{{ Sortie.duree }}</td>
-    <td>({{ Sortie.datecloture|date("Y-m-d H:i") }})</td>
-    <td>{{ Sortie.nbInscriptionMax }}</td>
-    <td>{{ Sortie.duree }}</td>
-    <td>{{ Sortie.urlPhoto }}</td>
-    <td>{{ Sortie.etat }}</td>
-    <td>{{ Sortie.organisateur }}</td>
-    <td>{{ Sortie.$campus }}</td>
-    <td>{{ Sortie.inscription }}</td>
-</tr>
-    {% endfor %}
+{% block main %}
+    <h1>{{ sortie.nom }}</h1>
+<div id="container">
+    <div id="bloc1">organiser par : {{ sortie.organisateur.pseudo }}</div>
+    <div id="bloc2"> attacher au campus de : {{ sortie.campus.nomCampus}} </div>
+    <div id="bloc3">Date et heure de la sortie : {{ sortie.datedebut |date('d/m/y h:m')}}</div>
+    <div id="bloc4">Lieu : {{ sortie.lieu.nomLieu }}</div>
+    <div id="bloc5">Date limite d'inscription : {{ sortie.datecloture |date('d/m/y h:m')}}</div>
+    <div id="bloc6">Rue : {{ sortie.lieu.rue }}</div>
+    <div id="bloc7">Nombre de place : {{ sortie.nbInscriptionMax }}</div>
+    <div id="bloc8">Code postale : {{ sortie.lieu.ville.codepostal }}</div>
+    <div id="bloc9">Durée : {{ sortie.duree }}min</div>
+    <div id="bloc10">Description : {{ sortie.descriptionInfos }}</div>
+    <div id="bloc11">Latitude : {{ sortie.lieu.latitude}} </div>
+    <div id="bloc12">Longitude : {{ sortie.lieu.longitude }}</div>
+
+</div>
 {% endblock %}
 {% block footer %}
 {% endblock %}
