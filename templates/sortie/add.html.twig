@@ -8,18 +8,10 @@
         <h1 class= "text-align: center"> Créer une sortie </h1>
 
         {{ form_start(sortieForm) }}
-        {{ form_start(lieuForm) }}
-        {{ form_start(villeForm) }}
-
         {{ form_widget(sortieForm) }}
-        {{ form_widget(lieuForm) }}
-        {{ form_widget(villeForm) }}
 
         <button class="btn btn-primary" type="submit">Enregistrer</button>
-
         {{ form_end(sortieForm) }}
-        {{ form_end(lieuForm) }}
-        {{ form_end(villeForm) }}
 
     </div>
 {% endblock %}

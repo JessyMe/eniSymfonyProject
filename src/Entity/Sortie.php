@@ -62,7 +62,6 @@ class Sortie
      */
     private $etat;
 
-
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sortiesOrganisees")
      * @ORM\JoinColumn(onDelete="NO ACTION")
@@ -71,13 +70,12 @@ class Sortie
 
     /**
      * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="sorties")
-     * @Assert\Type(type="App\Entity\Campus")
-     * @Assert\Valid
+     *
      */
     private $campus;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
+     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties", cascade={"persist"})
      * @ORM\JoinColumn(onDelete="NO ACTION")
      * @Assert\Type(type="App\Entity\Lieu")
      * @Assert\Valid
