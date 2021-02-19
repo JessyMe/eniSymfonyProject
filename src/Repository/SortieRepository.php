@@ -45,27 +45,14 @@ class SortieRepository extends ServiceEntityRepository
         if($userLog && $sortieOrganisateur) $qb->andWhere('s.organisateur = :userLog')->setParameter('userLog',$userLog);
         if($userLog && $sortieInscrit) $qb->join('s.inscriptions','i')->where('i.participant = :userLog')->setParameter('userLog',$userLog);
         if($userLog && $sortieNonInscrit){
-            //$qb->andWhere('s.id NOT IN (SELECT 6 FROM App\Entity\Inscription)');
-//            $qb->andWhere('s.id NOT IN (SELECT i.sortie FROM App\Entity\Inscription i WHERE i.participant = :userLog)')->setParameter('userLog',$userLog);
-//                $qb->andWhere('s != :exclu')->setParameter('exclu', $qb->join('s.inscriptions', 'i')->where('i.participant = :userLog')->setParameter('userLog',$userLog));
-
-//            $qb->join('s.inscriptions','i')->where('s.id != :idExclut')->setParameter('idExclut',$query2);
             $listSorties = array_map(function($i){
                 return $i->getSortie()->getId();
             },$this->inscriptionRepository->getSortieInscrit($userLog));
-
-            //$qb2 = $this->inscriptionRepository->createQueryBuilder('i')->select("i.sortie")->where("i.participant = :userLog")->setParameter('userLog',$userLog);
-            //$qb->andWhere($qb->expr()->notIn("s.id", '6'));
-            //dump(count($listSorties));
             if(count($listSorties) > 0){
                 $qb->andWhere('s.id NOT IN ('.implode(',',$listSorties).')');
             }
 
         }
-
-
-
-
         if($sortiePassee) $qb->andwhere('s.etat = 5');
 
 
