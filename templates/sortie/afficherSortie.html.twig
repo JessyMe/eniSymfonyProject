@@ -20,6 +20,7 @@
     <div id="bloc12">Longitude : {{ sortie.lieu.longitude }}</div>
 
 </div>
+    <button type="primary-button"><a href="{{ path('sortie_delete', {'id' : sortie.id}) }}">Annuler la sortie</a></button>
 {% endblock %}
 {% block footer %}
 {% endblock %}
