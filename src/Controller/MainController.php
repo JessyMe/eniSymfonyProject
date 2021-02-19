@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Inscription;
+use App\Repository\InscriptionRepository;
 use App\Service\ListFormSortie;
 use App\Entity\Campus;
 use App\Entity\Sortie;
@@ -33,13 +35,14 @@ class MainController extends AbstractController
 
         if($sortieForm->isSubmitted()){
 
-                dump($ListFormSortie);
+
 
                 $userLog = $this->getUser();
 
+
                 $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
                 $sorties = $sortieRepository->findByFormFilter($ListFormSortie, $userLog);
-                dump($sorties);
+
                 return $this->render('Page/home.html.twig',["sorties"=>$sorties,"campus"=>$campus,"sortieForm"=>$sortieForm->createView()]);
             }else{
                 $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);

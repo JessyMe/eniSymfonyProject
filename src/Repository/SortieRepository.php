@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Inscription;
 use App\Entity\Sortie;
 use App\Service\ListFormSortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -15,19 +17,24 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SortieRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $inscriptionRepository;
+    public function __construct(ManagerRegistry $registry, InscriptionRepository $inscriptionRepository)
     {
+        $this->inscriptionRepository = $inscriptionRepository;
         parent::__construct($registry, Sortie::class);
     }
-     public function findByFormFilter($listFormSortie, $userLog){
+
+
+
+     public function findByFormFilter( $listFormSortie, $userLog){
         $campus = $listFormSortie->getCampus();
         $nom = $listFormSortie->getNom();
         $datedebut = $listFormSortie->getdatedebut();
         $datefin = $listFormSortie->getdatefin();
         $sortieOrganisateur = $listFormSortie->getSortieOrganisateur();
-        dump($userLog);
-
-
+        $sortieInscrit = $listFormSortie->getSortieInscrit();
+        $sortieNonInscrit = $listFormSortie->getSortieNonInscrit();
+        $sortiePassee = $listFormSortie->getSortiePassee();
 
         $qb = $this->createQueryBuilder('s');
         if($campus) $qb->andWhere('s.campus = :campus')->setParameter('campus',$campus);
@@ -35,12 +42,39 @@ class SortieRepository extends ServiceEntityRepository
         if($datedebut && $datefin) $qb->andWhere('s.datedebut BETWEEN :datedebut AND :datefin')
                                         ->setParameter('datedebut',$datedebut)
                                         ->setParameter('datefin',$datefin);
-        if($userLog) $qb->andWhere('s.organisateur = :userLog')->setParameter('userLog',$userLog);
+        if($userLog && $sortieOrganisateur) $qb->andWhere('s.organisateur = :userLog')->setParameter('userLog',$userLog);
+        if($userLog && $sortieInscrit) $qb->join('s.inscriptions','i')->where('i.participant = :userLog')->setParameter('userLog',$userLog);
+        if($userLog && $sortieNonInscrit){
+            //$qb->andWhere('s.id NOT IN (SELECT 6 FROM App\Entity\Inscription)');
+//            $qb->andWhere('s.id NOT IN (SELECT i.sortie FROM App\Entity\Inscription i WHERE i.participant = :userLog)')->setParameter('userLog',$userLog);
+//                $qb->andWhere('s != :exclu')->setParameter('exclu', $qb->join('s.inscriptions', 'i')->where('i.participant = :userLog')->setParameter('userLog',$userLog));
+
+//            $qb->join('s.inscriptions','i')->where('s.id != :idExclut')->setParameter('idExclut',$query2);
+            $listSorties = array_map(function($i){
+                return $i->getSortie()->getId();
+            },$this->inscriptionRepository->getSortieInscrit($userLog));
+
+            //$qb2 = $this->inscriptionRepository->createQueryBuilder('i')->select("i.sortie")->where("i.participant = :userLog")->setParameter('userLog',$userLog);
+            //$qb->andWhere($qb->expr()->notIn("s.id", '6'));
+            //dump(count($listSorties));
+            if(count($listSorties) > 0){
+                $qb->andWhere('s.id NOT IN ('.implode(',',$listSorties).')');
+            }
+
+        }
+
+
+
+
+        if($sortiePassee) $qb->andwhere('s.etat = 5');
+
+
+
 
 
 
          $query = $qb->getQuery();
-         dump($query);
+
          return $query->getResult();
 
 
@@ -48,6 +82,8 @@ class SortieRepository extends ServiceEntityRepository
 
 
      }
+
+
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */

@@ -18,6 +18,15 @@ class InscriptionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Inscription::class);
     }
+    public function getSortieInscrit($user){
+
+        $qb = $this->createQueryBuilder('i');
+        //$qb->select("i.sortie_id");
+        $qb->where('i.participant = :user')->setParameter('user',$user);
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
 
     // /**
     //  * @return Inscription[] Returns an array of Inscription objects
