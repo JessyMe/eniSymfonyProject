@@ -15,14 +15,7 @@ class LieuType extends AbstractType
     {
         $builder
 
-            ->add('nomlieu', EntityType::class, [
-            'class' => Lieu::class,
-            'label'=>'Lieu',
-            'choice_label'=>function($lieu){
-                return $lieu->getNomLieu();
-            },
-            'placeholder'=>'Choisir un lieu',
-            ])
+            ->add('nomLieu')
             ->add('rue')
             ->add('latitude')
             ->add('longitude')

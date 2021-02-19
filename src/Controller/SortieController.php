@@ -48,7 +48,6 @@ class SortieController extends AbstractController
 
         $sortieForm->handleRequest($request);
 
-
         dump($sortieForm);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
