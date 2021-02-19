@@ -4,13 +4,13 @@ namespace App\Form;
 
 use App\Entity\Campus;
 use App\Entity\Etat;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\ResetType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -46,19 +46,43 @@ class SortieType extends AbstractType
             ->add('descriptionInfos', TextareaType::class, [
                 'label'=>'Description et infos :',
                 'attr' => ['class' =>'form-control']
+
             ])
+            ->add('ville', EntityType::class,
+            [
+                'class'=>Ville::class,
+                'choice_label'=>function($ville) {
+                return $ville->getNomVille($ville);
+                },
+                'mapped'=> false,
+                'placeholder' => 'choisir la ville',
+                'attr' => [
+                    'class' => 'select2',
+                ],
+            ])
+            ->add('lieu', LieuType::class);
+
+            /*->add('lieu', EntityType::class, [
+                'class' => Lieu::class,
+                'label'=>'Lieu',
+                'choice_label'=>function($lieu){
+                return $lieu->getNomLieu();
+                },
+                'placeholder'=>'Choisir un lieu'
+            ]);
+
             /*->add('etat', EntityType::class, [
                 'choice_label'=> 'libelle',
                 'placeholder' => 'choisir etat',
                 'class'=>Etat::class
-            ])*/
+            ])
             ->add('campus', EntityType::class,[
                 'choice_label' => 'nomCampus', 'placeholder'=> '{{sortie.campus}}',
                     'class'=>Campus::class
                 ]
             );
 
-           // ->add('lieu', LieuType::class)
+
             /*->add('lieu', EntityType::class,[
                 'choice_label'=> 'nomLieu', 'placeholder'=>'choisir un lieu',
                 'class'=>Lieu::class,

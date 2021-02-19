@@ -6,7 +6,6 @@ use App\Entity\Lieu;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,11 +15,17 @@ class LieuType extends AbstractType
     {
         $builder
 
-            ->add('nomLieu')
+            ->add('nomlieu', EntityType::class, [
+            'class' => Lieu::class,
+            'label'=>'Lieu',
+            'choice_label'=>function($lieu){
+                return $lieu->getNomLieu();
+            },
+            'placeholder'=>'Choisir un lieu',
+            ])
             ->add('rue')
             ->add('latitude')
             ->add('longitude')
-
         ;
     }
 

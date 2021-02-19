@@ -41,32 +41,19 @@ class SortieController extends AbstractController
 
         $sortie = new Sortie();
         $sortie->setEtat($etat);
-        $lieu = new Lieu();
-        $ville = new Ville();
-
-
-
         $sortie->setCampus( $user->getCampus());
 
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
-        $villeForm = $this->createForm(VilleType::class, $ville);
-        $lieuForm = $this->createForm(LieuType::class, $lieu);
+
         $sortieForm->handleRequest($request);
-        $villeForm->handleRequest($request);
-        $lieuForm->handleRequest($request);
+
 
         dump($sortieForm);
 
-        if ($sortieForm->isSubmitted() && $sortieForm->isValid() && $villeForm->isSubmitted() && $villeForm->isValid() && $lieuForm->isSubmitted() && $lieuForm->isValid())
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
             $sortie->setOrganisateur($user);
-            $em->persist($ville);
-            $em->flush();
-            $lieu->setVille($ville);
-            $em->persist($lieu);
-            $em->flush();
-            $sortie->setLieu($lieu);
             $em->persist($sortie);
             $em->flush();
 
@@ -76,8 +63,7 @@ class SortieController extends AbstractController
 
         return $this->render("sortie/add.html.twig", [
             'sortieForm'=>$sortieForm->createView(),
-            'lieuForm'=>$lieuForm->createView(),
-            'villeForm'=>$villeForm->createView(),
+
         ]);
     }
     /**
