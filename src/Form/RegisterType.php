@@ -20,6 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RegisterType extends AbstractType
 {
 
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -56,19 +58,23 @@ class RegisterType extends AbstractType
                 'label' => 'Campus : ',
                 'attr' => ['class' =>'form-control']
             ])
-            ->add('photo', FileType::class, [
-                'label' => 'Photo : ',
-                'attr' => ['class' =>'form-control']
-            ])
+//            ->add('photo', FileType::class, [
+//                'required' => False,
+//                'label' => 'Photo : ',
+//                'attr' => ['class' =>'form-control',
+//                    'value' => '{{ user.photo }}',
+//                    'placeholder' => 'Photo'
+//                ]
+//            ])
         ;
-        $builder->get('photo')->addModelTransformer(new CallBackTransformer(
-            function($photo) {
-                return null;
-            },
-            function($photo) {
-                return $photo;
-            }
-        ));
+//        $builder->get('photo')->addModelTransformer(new CallBackTransformer(
+//            function($photo) {
+//                return null;
+//            },
+//            function($photo) {
+//                return $photo;
+//            }
+//        ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
