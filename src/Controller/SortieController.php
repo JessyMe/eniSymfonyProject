@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\User;
@@ -34,12 +35,19 @@ class SortieController extends AbstractController
     {
         //$user = $this->get('security.context')->getToken()->getUser();
         $user = $em->getRepository(User::class)->find($this->getUser());
+        $etat = $this->getDoctrine()
+            ->getRepository(Etat::class)
+            ->find('1');
 
         $sortie = new Sortie();
+        $sortie->setEtat($etat);
         $lieu = new Lieu();
         $ville = new Ville();
 
+
+
         $sortie->setCampus( $user->getCampus());
+
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $villeForm = $this->createForm(VilleType::class, $ville);

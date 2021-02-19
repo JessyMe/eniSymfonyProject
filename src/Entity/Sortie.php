@@ -62,7 +62,6 @@ class Sortie
      */
     private $etat;
 
-
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sortiesOrganisees")
      * @ORM\JoinColumn(onDelete="NO ACTION")

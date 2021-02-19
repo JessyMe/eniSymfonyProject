@@ -47,11 +47,11 @@ class SortieType extends AbstractType
                 'label'=>'Description et infos :',
                 'attr' => ['class' =>'form-control']
             ])
-            ->add('etat', EntityType::class, [
+            /*->add('etat', EntityType::class, [
                 'choice_label'=> 'libelle',
                 'placeholder' => 'choisir etat',
                 'class'=>Etat::class
-            ])
+            ])*/
             ->add('campus', EntityType::class,[
                 'choice_label' => 'nomCampus', 'placeholder'=> '{{sortie.campus}}',
                     'class'=>Campus::class
