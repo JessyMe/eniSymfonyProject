@@ -58,9 +58,25 @@
             <td>{{ sortie.nom }}</td>
             <td>{{ sortie.datedebut|date('d/m/y') }}</td>
             <td>{{ sortie.datecloture|date('d/m/y') }}</td>
-            <td>.../{{ sortie.nbInscriptionMax }}</td>
+            <td>
+                {% set nbrInscriptions = 0 %}
+                {% for inscription in inscriptions %}
+                    {% if inscription.sortie.id == sortie.id %}
+                        {% set nbrInscriptions = nbrInscriptions + 1 %}
+                    {% endif %}
+                {% endfor %}
+                {{ nbrInscriptions }}/{{ sortie.nbInscriptionMax }}
+            </td>
             <td>{{ sortie.etat.libelle }}</td>
-            <td>x</td>
+            <td>
+                {% for inscription in inscriptions %}
+                    {% if inscription.sortie.id == sortie.id and inscription.participant.id == app.user.id %}
+                        X
+                    {% endif %}
+                {% endfor %}
+
+
+            </td>
             <td>{{ sortie.organisateur.pseudo }}</td>
             <td>Actions</td>
         </tr>

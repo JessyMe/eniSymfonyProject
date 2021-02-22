@@ -29,22 +29,33 @@ class MainController extends AbstractController
         $ListFormSortie = new ListFormSortie();
         $sortieForm = $this->createForm(ListSortieType::class,$ListFormSortie);
         $sortieForm->handleRequest($request);
-
-
-
+        //Liste des inscriptions
+        $InscriptionRepository = $this->getDoctrine()->getRepository(Inscription::class);
+        $inscriptions = $InscriptionRepository->findAll();
+        dump($inscriptions);
+        dump($this->getUser());
         if($sortieForm->isSubmitted()){
                 $userLog = $this->getUser();
-                dump($userLog);
                 $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
                 $sorties = $sortieRepository->findByFormFilter($ListFormSortie, $userLog);
 
-                return $this->render('Page/home.html.twig',["user"=>$userLog, "sorties"=>$sorties,"campus"=>$campus,"sortieForm"=>$sortieForm->createView()]);
+                return $this->render('Page/home.html.twig',
+                    ["user"=>$userLog,
+                        "inscriptions"=>$inscriptions,
+                        "sorties"=>$sorties,
+                        "campus"=>$campus,
+                        "sortieForm"=>$sortieForm->createView()]);
         }else{
                 $userLog = $this->getUser();
                 $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
                 $sorties = $sortieRepository->findAll();
 
-                return $this->render('Page/home.html.twig',["user"=>$userLog,"sorties"=>$sorties,"campus"=>$campus,"sortieForm"=>$sortieForm->createView()]);
+                return $this->render('Page/home.html.twig',
+                    ["user"=>$userLog,
+                        "inscriptions"=>$inscriptions,
+                        "sorties"=>$sorties,
+                        "campus"=>$campus,
+                        "sortieForm"=>$sortieForm->createView()]);
             }
 
 
