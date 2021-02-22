@@ -27,21 +27,14 @@ class SortieController extends AbstractController
     /**
      * @Route ("", name="sortie_add")
      */
-    public function add(EntityManagerInterface $em, Request $request)
+    public function add(EntityManagerInterface $em, Request $request) : Response
     {
         //$user = $this->get('security.context')->getToken()->getUser();
         $user = $em->getRepository(User::class)->find($this->getUser());
-
-
         $sortie = new Sortie();
 
-        $sortie->setCampus($user->getCampus());
-
         $sortieForm = $this->createForm(SortieType::class, $sortie);
-
         $sortieForm->handleRequest($request);
-
-        dump($sortieForm);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
@@ -56,6 +49,7 @@ class SortieController extends AbstractController
             }
             $sortie->setEtat($etat);
             $sortie->setOrganisateur($user);
+            $sortie->setCampus($user->getCampus());
 
             $em->persist($sortie);
             $em->flush();
@@ -90,5 +84,41 @@ class SortieController extends AbstractController
         $this->addFlash('success', "Sortie annulée");
         return $this->redirectToRoute("main_home");
     }
+
+    /**
+     * @Route ("/modifier/{id}", name="sortie_update", requirements={"id": "\d+"})
+     */
+     public function update (EntityManagerInterface $em, $id, Request $request) : Response
+    {
+    $sortie = $em->getRepository(Sortie::class)->find($id);
+    $sortieForm = $this->createForm(SortieType::class, $sortie);
+    $sortieForm->handleRequest($request);
+
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid())
+        {
+            if ($sortieForm->get('saveAndAdd')->isClicked()) {
+                $etat = $this->getDoctrine()
+                    ->getRepository(Etat::class)
+                    ->find('2');
+            } else {
+                $etat = $this->getDoctrine()
+                    ->getRepository(Etat::class)
+                    ->find('1');
+            }
+            $sortie->setEtat($etat);
+
+            $em->persist($sortie);
+            $em->flush();
+
+            $this->addFlash('success', 'Sortie modifiée');
+            return $this->redirectToRoute("main_home");
+        }
+        return $this->render('sortie/add.html.twig', [
+            'sortie' => $sortie,
+            'sortieForm_title' => "Modifer une sortie",
+            'sortieForm' => $sortieForm->createView(),
+            ]);
+    }
+
 
 }
