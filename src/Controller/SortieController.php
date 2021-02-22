@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Etat;
+use App\Entity\Inscription;
 use App\Entity\Sortie;
 use App\Entity\User;
 use App\Form\SortieType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -119,6 +122,54 @@ class SortieController extends AbstractController
             'sortieForm' => $sortieForm->createView(),
             ]);
     }
+
+    /**
+     * @Route ("/inscription/{id}", name="sortie_inscription", requirements={"id": "\d+"})
+     */
+    public function inscriptionSortie(EntityManagerInterface $em, $id)
+    {
+        $user = $em->getRepository(User::class)->find($this->getUser());
+        $sortie = $em->getRepository(Sortie::class)->find($id);
+
+
+        $inscription = new Inscription();
+        $inscription->setDateInscription(new DateTime());
+        $inscription->setParticipant($user);
+        $inscription->setSortie($sortie);
+
+        $em->persist($inscription);
+        $em->flush();
+
+        $this->addFlash('success', "Inscription à la sortie réussie");
+        return $this->redirectToRoute("main_home");
+
+    }
+
+    /**
+     * @Route ("/desister/{id}", name="sortie_desister", requirements={"id": "\d+"}, methods={"GET"})
+     * @param EntityManagerInterface $em
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function desisterSortie(EntityManagerInterface $em, $id): RedirectResponse
+    {
+        $sortie = $em->getRepository(Sortie::class)->find($id);
+        $user = $em->getRepository(User::class)->find($this->getUser());
+        $inscription = $em->getRepository(Inscription::class)->findOneByParticipantAndSortie($sortie, $user);
+
+        foreach ($inscription as $value) {
+            $idParticipant = $value;
+        }
+
+        dump($idParticipant);
+        $em->remove($idParticipant);
+        $em->flush();
+
+        $this->addFlash('success', "Désistement à la sortie enregistré");
+        return $this->redirectToRoute("main_home");
+
+    }
+
 
 
 }

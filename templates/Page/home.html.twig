@@ -93,6 +93,12 @@
                 <a href="{{ path('main_home') }}">S'inscrire</a>
                 <a href="{{ path('main_home') }}">Se désinscrire</a>
                 {% endif %}
+                {% if(sortie.datecloture > "now" and sortie.etat.id == 2) %}
+                    <a href="{{ path('sortie_inscription', {'id': sortie.id}) }}">S'inscrire</a>
+                {% endif %}
+                {% if(sortie.datedebut > "now") %}
+                    <a href="{{ path('sortie_desister', {'id': sortie.id}) }}">Se désister</a>
+                {% endif %}
             </td>
         </tr>
             {% endif %}
