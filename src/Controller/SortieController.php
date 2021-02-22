@@ -3,13 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Etat;
-use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\User;
-use App\Entity\Ville;
-use App\Form\LieuType;
 use App\Form\SortieType;
-use App\Form\VilleType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,13 +31,11 @@ class SortieController extends AbstractController
     {
         //$user = $this->get('security.context')->getToken()->getUser();
         $user = $em->getRepository(User::class)->find($this->getUser());
-        $etat = $this->getDoctrine()
-            ->getRepository(Etat::class)
-            ->find('1');
+
 
         $sortie = new Sortie();
-        $sortie->setEtat($etat);
-        $sortie->setCampus( $user->getCampus());
+
+        $sortie->setCampus($user->getCampus());
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
 
@@ -51,7 +45,18 @@ class SortieController extends AbstractController
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
+            if ($sortieForm->get('saveAndAdd')->isClicked()) {
+                $etat = $this->getDoctrine()
+                    ->getRepository(Etat::class)
+                    ->find('2');
+            } else {
+                $etat = $this->getDoctrine()
+                    ->getRepository(Etat::class)
+                    ->find('1');
+            }
+            $sortie->setEtat($etat);
             $sortie->setOrganisateur($user);
+
             $em->persist($sortie);
             $em->flush();
 
@@ -61,7 +66,6 @@ class SortieController extends AbstractController
 
         return $this->render("sortie/add.html.twig", [
             'sortieForm'=>$sortieForm->createView(),
-
         ]);
     }
     /**
