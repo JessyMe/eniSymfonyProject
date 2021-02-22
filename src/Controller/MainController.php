@@ -22,33 +22,29 @@ class MainController extends AbstractController
     public function List(Request $request)
     {
 
-
+        //Liste Campus pour menu déroulant
         $campusRepository = $this->getDoctrine()->getRepository(Campus::class);
         $campus = $campusRepository->findAll();
-
-
-
-
+        //création du formulaire
         $ListFormSortie = new ListFormSortie();
         $sortieForm = $this->createForm(ListSortieType::class,$ListFormSortie);
         $sortieForm->handleRequest($request);
 
+
+
         if($sortieForm->isSubmitted()){
-
-
-
                 $userLog = $this->getUser();
-
-
+                dump($userLog);
                 $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
                 $sorties = $sortieRepository->findByFormFilter($ListFormSortie, $userLog);
 
-                return $this->render('Page/home.html.twig',["sorties"=>$sorties,"campus"=>$campus,"sortieForm"=>$sortieForm->createView()]);
-            }else{
+                return $this->render('Page/home.html.twig',["user"=>$userLog, "sorties"=>$sorties,"campus"=>$campus,"sortieForm"=>$sortieForm->createView()]);
+        }else{
+                $userLog = $this->getUser();
                 $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
                 $sorties = $sortieRepository->findAll();
 
-                return $this->render('Page/home.html.twig',["sorties"=>$sorties,"campus"=>$campus,"sortieForm"=>$sortieForm->createView()]);
+                return $this->render('Page/home.html.twig',["user"=>$userLog,"sorties"=>$sorties,"campus"=>$campus,"sortieForm"=>$sortieForm->createView()]);
             }
 
 

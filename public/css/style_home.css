@@ -12,6 +12,8 @@
 .col-sm-1.col-lg-2{
     display:flex;
     align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
 }
 .form-group{
     margin-top: 1vh;
