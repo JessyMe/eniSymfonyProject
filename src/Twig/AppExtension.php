@@ -5,6 +5,7 @@ namespace App\Twig;
 
 
 use DateTime;
+use Doctrine\DBAL\Types\DateTimeType;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -17,15 +18,17 @@ class AppExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('convert', [$this, 'convert'])
+            new TwigFunction('todayConvert', [$this, 'todayConvert'])
         ];
     }
-    public function convert($dt)
+    public function todayConvert()
     {
-       $dateDepartTimeStamp = strtotime($dt);
-       dump($dt);
-       dump($dateDepartTimeStamp);
 
-       return $datePlusOneMonth = date("d/m/y", strtotime('+ 1 month',$dateDepartTimeStamp));
+
+
+        $nowmoins = date('y-m-d', strtotime('- 1 month'));
+        $nowmoinsConvert = DateTime::createFromFormat("y-m-d",$nowmoins,null);
+        return $nowmoinsConvert;
+
     }
 }
