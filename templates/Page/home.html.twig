@@ -60,7 +60,10 @@
             <td>{{ sortie.datedebut|date('d/m/Y - H:i') }}</td>
             <td>{{ sortie.datecloture|date('d/m/y') }}
 
-
+                    {% dump(sortie.datedebut) %}
+                {% if date("now") > convert(sortie.datedebut) %}
+                  {{  convert(date(sortie.datedebut))}}
+                {% endif %}
             </td>
             <td>
                 {% set nbrInscriptions = 0 %}
@@ -71,7 +74,8 @@
                 {% endfor %}
                 {{ nbrInscriptions }}/{{ sortie.nbInscriptionMax }}
             </td>
-            <td>{{ sortie.etat.libelle }}</td>
+            <td>
+                {{ sortie.etat.libelle }}</td>
             <td>
                 {% for inscription in inscriptions %}
                     {% if inscription.sortie.id == sortie.id and inscription.participant.id == app.user.id %}
