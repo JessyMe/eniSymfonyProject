@@ -27,6 +27,15 @@ class InscriptionRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function findOneByParticipantAndSortie($sortie, $user)
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.sortie = :sortie')->setParameter('sortie', $sortie)
+            ->andWhere('i.participant = :user')->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     // /**
     //  * @return Inscription[] Returns an array of Inscription objects

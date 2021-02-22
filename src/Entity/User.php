@@ -215,9 +215,11 @@ class User implements UserInterface
     /**
      * @param mixed $photo
      */
-    public function setPhoto($photo): void
+    public function setPhoto($photo)
     {
         $this->photo = $photo;
+
+        return $this;
     }
 
     /**

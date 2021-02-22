@@ -62,7 +62,12 @@
             <td>{{ sortie.etat.libelle }}</td>
             <td>x</td>
             <td>{{ sortie.organisateur.pseudo }}</td>
-            <td>Actions</td>
+            <td>{% if(sortie.datecloture > "now" and sortie.etat.id == 2) %}
+                    <a href="{{ path('sortie_inscription', {'id': sortie.id}) }}">S'inscrire</a>
+                {% endif %}
+                {% if(sortie.datedebut > "now") %}
+                    <a href="{{ path('sortie_desister', {'id': sortie.id}) }}">Se désister</a>
+            {% endif %}</td>
         </tr>
         {% endfor %}
         </tbody>
