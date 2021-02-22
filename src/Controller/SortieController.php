@@ -3,22 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Etat;
-use App\Entity\Inscription;
-use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\User;
-use App\Entity\Ville;
-use App\Form\LieuType;
 use App\Form\SortieType;
-use App\Form\VilleType;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use DateTime;
 
 /**
  * @Route("/sortie")
@@ -35,27 +27,30 @@ class SortieController extends AbstractController
     /**
      * @Route ("", name="sortie_add")
      */
-    public function add(EntityManagerInterface $em, Request $request)
+    public function add(EntityManagerInterface $em, Request $request) : Response
     {
         //$user = $this->get('security.context')->getToken()->getUser();
         $user = $em->getRepository(User::class)->find($this->getUser());
-        $etat = $this->getDoctrine()
-            ->getRepository(Etat::class)
-            ->find('1');
-
         $sortie = new Sortie();
-        $sortie->setEtat($etat);
-        $sortie->setCampus( $user->getCampus());
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
-
         $sortieForm->handleRequest($request);
-
-        dump($sortieForm);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
+            if ($sortieForm->get('saveAndAdd')->isClicked()) {
+                $etat = $this->getDoctrine()
+                    ->getRepository(Etat::class)
+                    ->find('2');
+            } else {
+                $etat = $this->getDoctrine()
+                    ->getRepository(Etat::class)
+                    ->find('1');
+            }
+            $sortie->setEtat($etat);
             $sortie->setOrganisateur($user);
+            $sortie->setCampus($user->getCampus());
+
             $em->persist($sortie);
             $em->flush();
 
@@ -65,7 +60,6 @@ class SortieController extends AbstractController
 
         return $this->render("sortie/add.html.twig", [
             'sortieForm'=>$sortieForm->createView(),
-
         ]);
     }
     /**
@@ -92,50 +86,39 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route ("/inscription/{id}", name="sortie_inscription", requirements={"id": "\d+"})
+     * @Route ("/modifier/{id}", name="sortie_update", requirements={"id": "\d+"})
      */
-    public function inscriptionSortie(EntityManagerInterface $em, $id)
+     public function update (EntityManagerInterface $em, $id, Request $request) : Response
     {
-        $user = $em->getRepository(User::class)->find($this->getUser());
-        $sortie = $em->getRepository(Sortie::class)->find($id);
+    $sortie = $em->getRepository(Sortie::class)->find($id);
+    $sortieForm = $this->createForm(SortieType::class, $sortie);
+    $sortieForm->handleRequest($request);
 
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid())
+        {
+            if ($sortieForm->get('saveAndAdd')->isClicked()) {
+                $etat = $this->getDoctrine()
+                    ->getRepository(Etat::class)
+                    ->find('2');
+            } else {
+                $etat = $this->getDoctrine()
+                    ->getRepository(Etat::class)
+                    ->find('1');
+            }
+            $sortie->setEtat($etat);
 
-        $inscription = new Inscription();
-        $inscription->setDateInscription(new DateTime());
-        $inscription->setParticipant($user);
-        $inscription->setSortie($sortie);
+            $em->persist($sortie);
+            $em->flush();
 
-        $em->persist($inscription);
-        $em->flush();
-
-        $this->addFlash('success', "Inscription à la sortie réussie");
-        return $this->redirectToRoute("main_home");
-
-    }
-
-    /**
-     * @Route ("/desister/{id}", name="sortie_desister", requirements={"id": "\d+"}, methods={"GET"})
-     * @param EntityManagerInterface $em
-     * @param $id
-     * @return RedirectResponse
-     */
-    public function desisterSortie(EntityManagerInterface $em, $id): RedirectResponse
-    {
-        $sortie = $em->getRepository(Sortie::class)->find($id);
-        $user = $em->getRepository(User::class)->find($this->getUser());
-        $inscription = $em->getRepository(Inscription::class)->findOneByParticipantAndSortie($sortie, $user);
-
-        foreach ($inscription as $value) {
-            $idParticipant = $value;
+            $this->addFlash('success', 'Sortie modifiée');
+            return $this->redirectToRoute("main_home");
         }
-
-        dump($idParticipant);
-        $em->remove($idParticipant);
-        $em->flush();
-
-        $this->addFlash('success', "Désistement à la sortie enregistré");
-        return $this->redirectToRoute("main_home");
-
+        return $this->render('sortie/add.html.twig', [
+            'sortie' => $sortie,
+            'sortieForm_title' => "Modifer une sortie",
+            'sortieForm' => $sortieForm->createView(),
+            ]);
     }
+
 
 }
