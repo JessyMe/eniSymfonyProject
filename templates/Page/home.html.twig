@@ -60,10 +60,7 @@
             <td>{{ sortie.datedebut|date('d/m/Y - H:i') }}</td>
             <td>{{ sortie.datecloture|date('d/m/y') }}
 
-                    {% dump(sortie.datedebut) %}
-                {% if date("now") > convert(sortie.datedebut) %}
-                  {{  convert(date(sortie.datedebut))}}
-                {% endif %}
+
             </td>
             <td>
                 {% set nbrInscriptions = 0 %}
@@ -85,7 +82,16 @@
 
             </td>
             <td>{{ sortie.organisateur.pseudo }}</td>
-            <td>Actions</td>
+            <td>
+                {% if sortie.etat.libelle == 'Créée' and sortie.organisateur.id == app.user.id%}
+                <a href="{{ path('sortie_update', {'id' : sortie.id}) }}">Modifier</a>
+                <a href="{{ path('sortie_delete', {'id' : sortie.id}) }}">Annuler</a>
+                {% endif %}
+                {% if sortie.etat.libelle == 'Ouverte' %}
+                <a href="{{ path('main_home') }}">S'inscrire</a>
+                <a href="{{ path('main_home') }}">Se désinscrire</a>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
         </tbody>
