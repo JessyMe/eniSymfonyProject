@@ -38,8 +38,8 @@
     </div>
     {{ form_end(sortieForm) }}
 
-
-    <table class="table">
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table class="table table-bordered table-striped mb-0">
         <thead>
         <tr>
             <th scope="col">Nom de la sortie</th>
@@ -53,18 +53,16 @@
         </tr>
         </thead>
         <tbody>
+        {% dump(todayConvert())  %}
+
+
         {% for sortie in sorties %}
+            {% if sortie.datedebut > todayConvert() %}
 
         <tr>
             <td>{{ sortie.nom }}</td>
-            <td>{{ sortie.datedebut|date('d/m/Y - H:i') }}</td>
-            <td>{{ sortie.datecloture|date('d/m/y') }}
-
-                    {% dump(sortie.datedebut) %}
-                {% if date("now") > convert(sortie.datedebut) %}
-                  {{  convert(date(sortie.datedebut))}}
-                {% endif %}
-            </td>
+            <td>{{ sortie.datedebut|date('d/m/y - H:i') }}</td>
+            <td>{{ sortie.datecloture|date('d/m/y') }}</td>
             <td>
                 {% set nbrInscriptions = 0 %}
                 {% for inscription in inscriptions %}
@@ -78,7 +76,7 @@
                 {{ sortie.etat.libelle }}</td>
             <td>
                 {% for inscription in inscriptions %}
-                    {% if inscription.sortie.id == sortie.id and inscription.participant.id == app.user.id %}
+                    {% if app.user != null and inscription.sortie.id == sortie.id and inscription.participant.id == app.user.id %}
                         X
                     {% endif %}
                 {% endfor %}
@@ -97,9 +95,12 @@
                 {% endif %}
             </td>
         </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>
-
-<button type="primary-button"><a href="{{ path('sortie_add')}}"> Nouvelle sortie</a></button>
+    </div>
+<div>
+<button class="btn btn-light"><a href="{{ path('sortie_add')}}">Créer une sortie</a></button>
+</div>
 {% endblock %}
