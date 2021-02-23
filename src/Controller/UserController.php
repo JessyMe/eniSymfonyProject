@@ -34,14 +34,14 @@ class UserController extends AbstractController
             //hash password
             $hashed = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hashed);
-            /**@var UploadedFile $photo */
-            $photo = $registerForm->get('photo')->getData();
-            if ($photo)
-            {
-                $photoFileName = $fileUploader->upload($photo);
-                $user->setphoto($photoFileName);
-
-            }
+//            /**@var UploadedFile $photo */
+//            $photo = $registerForm->get('photo')->getData();
+//            if ($photo)
+//            {
+//                $photoFileName = $fileUploader->upload($photo);
+//                $user->setphoto($photoFileName);
+//
+//            }
 
             $em->persist($user);
             $em->flush();
@@ -73,14 +73,14 @@ class UserController extends AbstractController
             $hashed = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hashed);
 
-            /**@var UploadedFile $photo */
-            $photo = $registerForm->get('photo')->getData();
-            if ($photo)
-            {
-                $photoFileName = $fileUploader->upload($photo);
-                $user->setphoto($photoFileName);
-
-            }
+//            /**@var UploadedFile $photo */
+//            $photo = $registerForm->get('photo')->getData();
+//            if ($photo)
+//            {
+//                $photoFileName = $fileUploader->upload($photo);
+//                $user->setphoto($photoFileName);
+//
+//            }
 
             $em->flush();
 
