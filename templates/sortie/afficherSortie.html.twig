@@ -1,5 +1,4 @@
 {% extends 'layout.html.twig' %}
-{% form_theme 'AfficherSortie.CSS' %}
 {% block title %}Afficher une Sortie{% endblock %}
 
 
@@ -18,8 +17,53 @@
     <div id="bloc10">Description : {{ sortie.descriptionInfos }}</div>
     <div id="bloc11">Latitude : {{ sortie.lieu.latitude}} </div>
     <div id="bloc12">Longitude : {{ sortie.lieu.longitude }}</div>
-
 </div>
+    <table>
+        <thead>
+        <tr>
+            <th colspan="2"> Pseudo </th>
+            <th colspan="2"> Nom </th>
+            <th colspan="2"> Prénom </th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+
+                <td>
+                   {% for i in inscriptions %}
+                                {% for user in users %}
+                                    {% if user.id == i.participant.id %}
+                                        {{ user.pseudo }} <br>
+                                    {% endif %}
+                                 {% endfor%}
+                   {% endfor %}
+                    </td>
+            <td>{% for i in inscriptions %}
+                    {% for user in users %}
+                        {% if user.id == i.participant.id %}
+                            {{ user.nom }} <br>
+                        {% endif %}
+                    {% endfor%}
+                {% endfor %}
+
+
+            </td>
+            <td>{% for i in inscriptions %}
+                    {% for user in users %}
+                        {% if user.id == i.participant.id %}
+                            {{ user.prenom }} <br>
+                        {% endif %}
+                    {% endfor%}
+                {% endfor %}
+
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
     <button type="primary-button"><a href="{{ path('sortie_delete', {'id' : sortie.id}) }}">Annuler la sortie</a></button>
 {% endblock %}
 {% block footer %}

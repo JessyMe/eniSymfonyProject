@@ -4,13 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Etat;
 use App\Entity\Inscription;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Entity\Ville;
+use App\Form\LieuType;
 use App\Form\SortieType;
-use DateTime;
+use App\Form\VilleType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,30 +32,27 @@ class SortieController extends AbstractController
     /**
      * @Route ("", name="sortie_add")
      */
-    public function add(EntityManagerInterface $em, Request $request) : Response
+    public function add(EntityManagerInterface $em, Request $request)
     {
         //$user = $this->get('security.context')->getToken()->getUser();
         $user = $em->getRepository(User::class)->find($this->getUser());
+        $etat = $this->getDoctrine()
+            ->getRepository(Etat::class)
+            ->find('1');
+
         $sortie = new Sortie();
+        $sortie->setEtat($etat);
+        $sortie->setCampus( $user->getCampus());
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
+
         $sortieForm->handleRequest($request);
+
+        dump($sortieForm);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
-            if ($sortieForm->get('saveAndAdd')->isClicked()) {
-                $etat = $this->getDoctrine()
-                    ->getRepository(Etat::class)
-                    ->find('2');
-            } else {
-                $etat = $this->getDoctrine()
-                    ->getRepository(Etat::class)
-                    ->find('1');
-            }
-            $sortie->setEtat($etat);
             $sortie->setOrganisateur($user);
-            $sortie->setCampus($user->getCampus());
-
             $em->persist($sortie);
             $em->flush();
 
@@ -63,16 +62,30 @@ class SortieController extends AbstractController
 
         return $this->render("sortie/add.html.twig", [
             'sortieForm'=>$sortieForm->createView(),
+
         ]);
     }
+
     /**
      * @Route ("/Sortie/AfficherSortie/{id}", name="afficherSortie", requirements={"id": "\d+"})
      */
-    public function AfficherSortie(): Response
+    public function AfficherSortie(EntityManagerInterface $em,$id)
     {
         $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-        $sorties = $sortieRepository->{1};
-        return $this->render('sortie/afficherSortie.html.twig',["sorties"=>$sorties]);
+        $sortie = $sortieRepository->find($id);
+
+        $inscriptionRepository = $this->getDoctrine()->getRepository(Inscription::class);
+        $inscription = $inscriptionRepository->findBy(["sortie"=>$id]);
+
+        dump($inscription);
+
+
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
+        $user = $userRepository->findAll();
+
+        dump($user);
+        return $this->render('sortie/afficherSortie.html.twig',["sortie"=>$sortie,
+            "inscriptions"=>$inscription, "id"=>$id, "users"=>$user]);
     }
 
     /**
