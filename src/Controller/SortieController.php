@@ -157,11 +157,10 @@ class SortieController extends AbstractController
         $user = $em->getRepository(User::class)->find($this->getUser());
         $inscription = $em->getRepository(Inscription::class)->findOneByParticipantAndSortie($sortie, $user);
 
-        foreach ($inscription as $value) {
-            $idParticipant = $value;
+        foreach ($inscription as $participant) {
+            $idParticipant = $participant;
         }
 
-        dump($idParticipant);
         $em->remove($idParticipant);
         $em->flush();
 

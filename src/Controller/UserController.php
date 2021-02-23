@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegisterType;
-use App\Service\FileUploader;
+//use App\Service\FileUploader;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+//use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +20,7 @@ class UserController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function register(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, FileUploader $fileUploader): Response
+    public function register(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User();
         $registerForm = $this->createForm(RegisterType::class, $user);
@@ -59,7 +59,7 @@ class UserController extends AbstractController
     /**
      * @Route("/profil", name="user_profil")
      */
-    public function modifierProfil(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, FileUploader $fileUploader): Response
+    public function modifierProfil(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder): Response
     {
 
 
