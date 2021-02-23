@@ -4,11 +4,15 @@
 
 {% block main %}
 {#    {% if is_granted("ROLE_USER") %}#}
-{#        <div class="container">#}
-{#            <div class="photo">#}
-{#                <img src="{{ asset('user.photo') }}" alt="Photo profil">#}
+{#        {% if not user.photo %}#}
+{#            {{ asset('photoProfil/profil.jpg') }}#}
+{#        {% else %}#}
+{#            <div class="container">#}
+{#                <div class="photo">#}
+{#                    <img src="{{ asset('user.photo') }}" alt="Photo profil">#}
+{#                </div>#}
 {#            </div>#}
-{#        </div>#}
+{#        {% endif %}#}
 {#    {% endif %}#}
 
     <div class="container">
@@ -19,6 +23,7 @@
                         <div class="form-label">
                             {{ form_start(registerForm) }}
                             {{ form_widget(registerForm) }}
+{#                            {{ form_row(registerForm.photo) }}#}
                             <br>
                             <button class="btn btn-primary" type="submit">Enregistrer</button>
                             <button class="btn btn-dark" type="reset">Annuler</button>
