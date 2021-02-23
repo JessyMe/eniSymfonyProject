@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Form;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -65,9 +66,9 @@ class SortieType extends AbstractType
             ->add('saveAndAdd', SubmitType::class, [
             'label'=> 'Publier',
              ])
-            ->add('Annuler', ResetType::class);
+            //->add('Annuler', ResetType::class);
 
-            /*->add('lieu', EntityType::class, [
+            ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'label'=>'Lieu',
                 'choice_label'=>function($lieu){
