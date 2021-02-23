@@ -4,7 +4,7 @@
 
     {{ form_start(sortieForm) }}
     <div class="formHome row">
-        <div class="formHome col-sm-1 col-lg-5">
+        <div class="formHome col-sm-1 col-md-1 col-lg-5">
 
             {{ form_row(sortieForm.campus) }}
 
@@ -19,13 +19,13 @@
             </div>
 
         </div>
-        <div class="formHome-col col-sm-1 col-lg-4">
+        <div class="formHome-col col-sm-1 col-md-1 col-lg-4">
             {{ form_row(sortieForm.SortieOrganisateur) }}
             {{ form_row(sortieForm.SortieInscrit) }}
             {{ form_row(sortieForm.SortieNonInscrit) }}
             {{ form_row(sortieForm.SortiePassee) }}
         </div>
-        <div class="col-sm-1 col-lg-2">
+        <div class="col-sm-1 col-md-1 col-lg-2">
             <div>
                 {% if (user) %}
                     Date du jour : {{ 'now' | date('d/m/y') }}
