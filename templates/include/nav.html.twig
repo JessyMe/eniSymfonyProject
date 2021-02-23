@@ -6,12 +6,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
+            {% if app.user !=null and app.user.roles == "ROLE_ADMIN %}" %}
             <li class="nav-item ">
                 <a class="nav-link" href="#" aria-disabled="true">Ville</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" aria-disabled="true">Campus</a>
             </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('main_home') }}" aria-disabled="true">Accueil</a>
             </li>
