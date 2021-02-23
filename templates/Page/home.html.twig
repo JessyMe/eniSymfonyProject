@@ -115,7 +115,9 @@
                         {% endif %}
                     {% endif %}
                 {% endif %}
-
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <a href="{{ path('afficherSortie', {'id': sortie.id}) }}">Details</a>
+            {% endif %}
             </td>
         </tr>
             {% endif %}
