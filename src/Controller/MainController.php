@@ -49,7 +49,7 @@ class MainController extends AbstractController
             $userLog = $this->getUser();
             $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
             $sorties = $sortieRepository->findAll();
-
+            dump($sorties);
             return $this->render('Page/home.html.twig',
                 ["user"=>$userLog,
                     "inscriptions"=>$inscriptions,
@@ -93,9 +93,5 @@ class MainController extends AbstractController
                 $em->flush();
             }
 
-
-
         }
-
-
 }

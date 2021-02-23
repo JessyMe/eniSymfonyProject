@@ -59,23 +59,23 @@ class SortieType extends AbstractType
                     'class' => 'select2',
                 ],
             ])
-            ->add('lieu', LieuType::class)
+            //->add('lieu', LieuType::class)
+            ->add('lieu', EntityType::class, [
+                'class' => Lieu::class,
+                'label'=>'Lieu',
+                'choice_label'=>function($lieu){
+                    return $lieu->getNomLieu();
+                },
+                'placeholder'=>'Choisir un lieu'])
+
             ->add('save', SubmitType::class, [
                 'label'=> 'Enregistrer'
             ])
             ->add('saveAndAdd', SubmitType::class, [
             'label'=> 'Publier',
              ])
-            //->add('Annuler', ResetType::class);
+            ->add('Annuler', ResetType::class);
 
-            ->add('lieu', EntityType::class, [
-                'class' => Lieu::class,
-                'label'=>'Lieu',
-                'choice_label'=>function($lieu){
-                return $lieu->getNomLieu();
-                },
-                'placeholder'=>'Choisir un lieu'
-            ]);
 
             /*->add('etat', EntityType::class, [
                 'choice_label'=> 'libelle',
