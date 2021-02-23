@@ -138,7 +138,6 @@ class Lieu
                 $sortie->setLieu(null);
             }
         }
-
         return $this;
     }
 
@@ -157,5 +156,4 @@ class Lieu
     {
         return $this->nomLieu;
     }
-
 }

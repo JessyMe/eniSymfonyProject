@@ -80,6 +80,7 @@ class SortieController extends AbstractController
      */
     public function delete (EntityManagerInterface $em, $id)
     {
+       // $this->addFlash('warning', 'Attention, cette sortie sera annulée');
         $sortieRepo =$this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $sortieRepo->find($id);
         $em->remove($sortie);
