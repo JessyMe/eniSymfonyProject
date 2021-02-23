@@ -75,19 +75,23 @@
             <td>
                 {{ sortie.etat.libelle }}</td>
             <td>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 {% for inscription in inscriptions %}
                     {% if app.user != null and inscription.sortie.id == sortie.id and inscription.participant.id == app.user.id %}
                         X
                     {% endif %}
                 {% endfor %}
+                {% endif %}
 
 
             </td>
             <td>{{ sortie.organisateur.pseudo }}</td>
             <td>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 {% if sortie.etat.libelle == 'Créée' and sortie.organisateur.id == app.user.id%}
                 <a href="{{ path('sortie_update', {'id' : sortie.id}) }}">Modifier</a>
                 <a href="{{ path('sortie_delete', {'id' : sortie.id}) }}">Annuler</a>
+                    {% endif %}
                 {% endif %}
                 {% if sortie.etat.libelle == 'Ouverte' %}
                 <a href="{{ path('main_home') }}">S'inscrire</a>
@@ -107,6 +111,9 @@
     </table>
     </div>
 <div>
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 <button class="btn btn-light"><a href="{{ path('sortie_add')}}">Créer une sortie</a></button>
+    {% endif %}
 </div>
+
 {% endblock %}

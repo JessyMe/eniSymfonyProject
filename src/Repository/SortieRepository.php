@@ -7,6 +7,7 @@ use App\Entity\Sortie;
 use App\Service\ListFormSortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -57,9 +58,6 @@ class SortieRepository extends ServiceEntityRepository
 
 
 
-
-
-
          $query = $qb->getQuery();
 
          return $query->getResult();
@@ -68,6 +66,15 @@ class SortieRepository extends ServiceEntityRepository
 
 
 
+     }
+
+     public function findByEtat (int $etat){
+
+        $qb = $this->createQueryBuilder('s');
+        $qb->andWhere('s.etat = :etat ')
+            ->setParameter('etat', $etat);
+        $query = $qb->getQuery();
+        return $query->getResult();
      }
 
 
