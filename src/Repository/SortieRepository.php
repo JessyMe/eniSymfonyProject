@@ -2,12 +2,9 @@
 
 namespace App\Repository;
 
-use App\Entity\Inscription;
+
 use App\Entity\Sortie;
-use App\Service\ListFormSortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -44,7 +41,7 @@ class SortieRepository extends ServiceEntityRepository
                                         ->setParameter('datedebut',$datedebut)
                                         ->setParameter('datefin',$datefin);
         if($userLog && $sortieOrganisateur) $qb->andWhere('s.organisateur = :userLog')->setParameter('userLog',$userLog);
-        if($userLog && $sortieInscrit) $qb->join('s.inscriptions','i')->where('i.participant = :userLog')->setParameter('userLog',$userLog);
+        if($userLog && $sortieInscrit) $qb->join('s.inscriptions','i')->andwhere('i.participant = :userLog')->setParameter('userLog',$userLog);
         if($userLog && $sortieNonInscrit){
             $listSorties = array_map(function($i){
                 return $i->getSortie()->getId();

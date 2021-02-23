@@ -29,10 +29,10 @@ class MainController extends AbstractController
         $ListFormSortie = new ListFormSortie();
         $sortieForm = $this->createForm(ListSortieType::class,$ListFormSortie);
         $sortieForm->handleRequest($request);
-        //Liste des inscriptions
+
+        //Liste des inscriptions pour affichage
         $InscriptionRepository = $this->getDoctrine()->getRepository(Inscription::class);
         $inscriptions = $InscriptionRepository->findAll();
-
 
         if($sortieForm->isSubmitted()){
             $userLog = $this->getUser();
@@ -49,7 +49,6 @@ class MainController extends AbstractController
             $userLog = $this->getUser();
             $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
             $sorties = $sortieRepository->findAll();
-            dump($sorties);
             return $this->render('Page/home.html.twig',
                 ["user"=>$userLog,
                     "inscriptions"=>$inscriptions,
@@ -61,37 +60,37 @@ class MainController extends AbstractController
 
         }
 
-        public function setEtatSortie()
-        {
-            $em = $this->getDoctrine()->getManager();
-            //mise à jour état ouverte -> en cours ou cloturée
-            $date = new \DateTime();
-            $etat = 2;
-            $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
-            $sorties = $sortieRepo->findByEtat($etat);
-            dump($sorties);
-
-            foreach ($sorties as $sortie){
-                if ($sortie->getDatedebut() == $date){
-                    $this->setEtatSortie();
-
-                }
-
-                if($sortie->getDatecloture() > $date){
-                    $this->setEtatSortie();
-                }
-                $em->persist($sortie);
-                $em->flush();
-            }
-            //mise à jour état en cours -> passée
-            $etat=4;
-            $sorties = $sorties = $sortieRepo->findByEtat($etat);
-            foreach ($sorties as $sortie){
-                if ($sortie->getDatedebut() > $date)
-                    $sortie->setEtat(5);
-                $em->persist($sortie);
-                $em->flush();
-            }
-
-        }
+//        public function setEtatSortie()
+//        {
+//            $em = $this->getDoctrine()->getManager();
+//            //mise à jour état ouverte -> en cours ou cloturée
+//            $date = new \DateTime();
+//            $etat = 2;
+//            $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
+//            $sorties = $sortieRepo->findByEtat($etat);
+//            dump($sorties);
+//
+//            foreach ($sorties as $sortie){
+//                if ($sortie->getDatedebut() == $date){
+//                    $this->setEtatSortie();
+//
+//                }
+//
+//                if($sortie->getDatecloture() > $date){
+//                    $this->setEtatSortie();
+//                }
+//                $em->persist($sortie);
+//                $em->flush();
+//            }
+//            //mise à jour état en cours -> passée
+//            $etat=4;
+//            $sorties = $sorties = $sortieRepo->findByEtat($etat);
+//            foreach ($sorties as $sortie){
+//                if ($sortie->getDatedebut() > $date)
+//                    $sortie->setEtat(5);
+//                $em->persist($sortie);
+//                $em->flush();
+//            }
+//
+//        }
 }
