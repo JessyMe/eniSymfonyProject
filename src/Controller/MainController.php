@@ -2,14 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Etat;
+//use App\Entity\Etat;
 use App\Entity\Inscription;
 use App\Service\ListFormSortie;
 use App\Entity\Campus;
 use App\Entity\Sortie;
 use App\Form\ListSortieType;
-use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\Integer;
+//use Doctrine\ORM\EntityManagerInterface;
+//use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="main_home")
+     * @Route("/home", name="main_home")
      */
     public function List(Request $request)
     {
