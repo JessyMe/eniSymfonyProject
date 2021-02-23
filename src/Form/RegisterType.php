@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RegisterType extends AbstractType
@@ -58,14 +59,16 @@ class RegisterType extends AbstractType
                 'label' => 'Campus : ',
                 'attr' => ['class' =>'form-control']
             ])
-//            ->add('photo', FileType::class, [
-//                'required' => False,
-//                'label' => 'Photo : ',
-//                'attr' => ['class' =>'form-control',
+            ->add('photo', FileType::class, [
+                'required' => False,
+//                'mapped' => False,
+//                'constraints' => [new File((string)['mimeTypes' => ['image/jpg', 'image/jpeg', 'image/png']])],
+                'label' => 'Photo : ',
+                'attr' => ['class' =>'form-control',
 //                    'value' => '{{ user.photo }}',
-//                    'placeholder' => 'Photo'
-//                ]
-//            ])
+                    'placeholder' => 'Photo'
+                ]
+            ])
         ;
 //        $builder->get('photo')->addModelTransformer(new CallBackTransformer(
 //            function($photo) {
