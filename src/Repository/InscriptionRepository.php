@@ -36,6 +36,14 @@ class InscriptionRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+//    public function findAllBySortie($sortie)
+//    {
+//        return $this->createQueryBuilder('i')
+//            ->where('i.sortie = :sortie')->setParameter('sortie', $sortie)
+//            ->getQuery()
+//            ->getResult();
+//    }
+
 
     // /**
     //  * @return Inscription[] Returns an array of Inscription objects
