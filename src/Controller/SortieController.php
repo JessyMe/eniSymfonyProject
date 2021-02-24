@@ -45,12 +45,10 @@ class SortieController extends AbstractController
         $sortie = new Sortie();
         $sortie->setEtat($etat);
         $sortie->setCampus( $user->getCampus());
-
         $sortieForm = $this->createForm(SortieType::class, $sortie);
 
         $sortieForm->handleRequest($request);
 
-        dump($sortieForm);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
