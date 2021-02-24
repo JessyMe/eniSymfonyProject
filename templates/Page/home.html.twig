@@ -42,7 +42,7 @@
     </div>
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
     <table class="table table-bordered table-striped mb-0">
-        <thead>
+        <thead class="sticky-top">
         <tr>
             <th scope="col">Nom de la sortie</th>
             <th scope="col">Date de la sortie</th>
@@ -130,7 +130,7 @@
 <div>
     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
     <div class=" m-2">
-<button class="btn btn-light"><a href="{{ path('sortie_add')}}">Créer une sortie</a></button>
+<button class="d-none d-sm-block btn btn-light"><a href="{{ path('sortie_add')}}">Créer une sortie</a></button>
     </div>
     {% endif %}
 </div>
