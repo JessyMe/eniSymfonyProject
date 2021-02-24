@@ -52,6 +52,7 @@ class User implements UserInterface
      * @var String The hashed password
      * @ORM\Column(type="string")
      * @Assert\Length(min=8, minMessage="Le mot de passe doit contenir au moins 8 caractères avec une majuscule, une minuscule et un nombre!")
+//     * @Assert\Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$",message="Le mot de passe doit contenir au moins 8 caractères avec une majuscule, une minuscule et un nombre!")
      */
     private $password;
 
