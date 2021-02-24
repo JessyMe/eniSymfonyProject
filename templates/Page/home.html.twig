@@ -107,11 +107,11 @@
                 {% if app.user != null%}
                     {% if( sortie.etat.id == 2 ) %}
                         {% set userInscrit = false %}
-                        {% for inscription in inscriptions %}
-                            {% if inscription.sortie.id == sortie.id and inscription.participant.id == app.user.id  %}
-                                {% set userInscrit = true %}
-                            {% endif %}
-                        {% endfor %}
+                            {% for inscription in inscriptions %}
+                                {% if inscription.sortie.id == sortie.id and inscription.participant.id == app.user.id  %}
+                                    {% set userInscrit = true %}
+                                {% endif %}
+                            {% endfor %}
                         {% if userInscrit == false %}
                             <a href="{{ path('sortie_inscription', {'id': sortie.id}) }}">S'inscrire</a>
                         {% endif %}
