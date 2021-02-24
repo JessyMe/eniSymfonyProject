@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/home", name="main_home")
+     * @Route("/", name="main_home")
      */
     public function List(Request $request)
     {
