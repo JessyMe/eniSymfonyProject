@@ -67,7 +67,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route ("/Sortie/AfficherSortie/{id}", name="afficherSortie", requirements={"id": "\d+"})
+     * @Route ("/detail/{id}", name="afficherSortie", requirements={"id": "\d+"})
      */
     public function AfficherSortie(EntityManagerInterface $em,$id)
     {
