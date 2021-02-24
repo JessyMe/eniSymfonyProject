@@ -6,6 +6,7 @@ use App\Entity\Sortie;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Exception\InvalidArgumentException;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
@@ -48,8 +49,67 @@ class SortieType extends AbstractType
                 'attr' => ['class' => 'form-control']
 
             ])
-            -> add('campus', )
-            /*->add('ville', EntityType::class,
+            ->add('ville', EntityType::class, [
+                'class' => Ville::class,
+                'placeholder' => 'Sélectionner la ville',
+                'label' => 'ville',
+                'mapped' => false,
+            ]);
+
+
+
+        $builder->get('ville')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event)
+            {
+                $form = $event->getForm();
+
+                $form->getParent()->add('lieu', EntityType::class, [
+                    'class' => Lieu::class,
+                    'placeholder' => 'Sélectionner le lieu',
+                    'label' => 'Lieu',
+                    'choices' => $form->getData()->getLieux()
+
+
+                ]);
+            }
+        );
+
+        $builder->addEventListener(
+            FormEvents::POST_SET_DATA,
+            function (FormEvent $event)
+            {
+                $form = $event->getForm();
+                $data = $event->getData();
+                $lieu = $data->getLieu();
+
+                if ($lieu)
+                {
+                    $form->get('ville')->setData($lieu->getVille());
+
+                    $form->add('lieu', EntityType::class, [
+                        'class' => Lieu::class,
+                        'placeholder' => 'Sélectionner le lieu',
+                        'label' => 'Lieu',
+                        'choices' => $lieu->getVille()->getLieux()
+
+                    ]);
+
+                }
+
+
+
+            }
+        );
+
+    }
+
+            // pour ajouter un nouveau lieu, utiliser partie 1 doc Form Based on the Underlying Data
+
+
+            /*->add('campus')
+            };
+            ->add('ville', EntityType::class,
                 [
                     'class' => Ville::class,
                     'choice_label' => function ($ville) {
@@ -76,7 +136,6 @@ class SortieType extends AbstractType
         );
     }
 
-
             //->add('lieu', LieuType::class)
            /* ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
@@ -92,8 +151,14 @@ class SortieType extends AbstractType
         ->add('saveAndAdd', SubmitType::class, [
             'label'=> 'Publier',
         ])
-        ->add('Annuler', ResetType::class);*/
-
+        ->add('Annuler', ResetType::class);
+->add('save', SubmitType::class, [
+'label'=> 'Enregistrer'
+])
+->add('saveAndAdd', SubmitType::class, [
+'label'=> 'Publier',
+])
+->add('Annuler', ResetType::class)*/
 
 
 

@@ -79,6 +79,7 @@ class Sortie
      * @ORM\JoinColumn(onDelete="NO ACTION")
      * @Assert\Type(type="App\Entity\Lieu")
      * @Assert\Valid
+     *@Assert\NotBlank
      */
     private $lieu;
 
