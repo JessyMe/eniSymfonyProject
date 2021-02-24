@@ -6,7 +6,9 @@ $sortie_ville.change(function()
         let $form = $(this).closest('form')
         let data = {}
 
-        data[$token.attr('name')] = $token.val()
+        data[$token.attr('nom')] = $token.val()
+        data[$token.attr('nbInscriptionMax')] = $token.val()
+
         data[$sortie_ville.attr('name')] = $sortie_ville.val()
 
        $.post($form.attr('action'), data).then(function (response)

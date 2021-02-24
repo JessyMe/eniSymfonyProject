@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SortieRepository", repositoryClass=SortieRepository::class)
+ *
  */
 class Sortie
 {
@@ -111,12 +113,12 @@ class Sortie
         return $this;
     }
 
-    public function getDatedebut(): ?\DateTimeInterface
+    public function getDatedebut(): ?DateTimeInterface
     {
         return $this->datedebut;
     }
 
-    public function setDatedebut(\DateTimeInterface $datedebut): self
+    public function setDatedebut(DateTimeInterface $datedebut): self
     {
         $this->datedebut = $datedebut;
 
@@ -135,12 +137,12 @@ class Sortie
         return $this;
     }
 
-    public function getDatecloture(): ?\DateTimeInterface
+    public function getDatecloture(): ?DateTimeInterface
     {
         return $this->datecloture;
     }
 
-    public function setDatecloture(\DateTimeInterface $datecloture): self
+    public function setDatecloture(DateTimeInterface $datecloture): self
     {
         $this->datecloture = $datecloture;
 
