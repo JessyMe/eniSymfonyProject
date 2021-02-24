@@ -1,25 +1,25 @@
-#container {
-    alignment: center;
-    align-items: center;
-    background-color: white;
-    display: grid;
-    grid-template-columns: 500px 500px 500px;
-    align-items: center;
-    min-height:500px;
-    min-width: 500px;
-    font-size: 1.3em;
-    margin-left: 100px;
+.container{
+    display:flex;
+    width:100vw;
+    justify-content:center;
 }
-.flex {
-    display: flex;
-    flex-wrap: wrap;
-}
-table, th, td {
-    grid-template-columns: 100px 100px 100px;
-    align-items: center;
-    min-height:200px;
-    min-width: 200px;
-    font-size: 1em;
-    margin-left: 200px;
+.detail{
+    display:flex;
+    width:100vw;
+    justify-content:center;
 
 }
+.titleContainer{
+    display:flex;
+    justify-content:center;
+    width:100vw;
+}
+
+.list{
+    margin: 2vw;
+}
+.inscrits{
+    width:40vw;
+    margin-left: 3vw;
+}
+
