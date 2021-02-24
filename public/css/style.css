@@ -30,7 +30,8 @@
 
 .footer {
     margin: 0;
-    width: -moz-max-content;
-    height: min-content;
+    width: 100vw;
+    height: 3vh;
     text-align: center;
+    padding: 0;
 }

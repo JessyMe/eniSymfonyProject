@@ -1,13 +1,10 @@
-
 .formHome{
     display: flex;
     margin: 1vw;
-
 }
 .row{
     width:100vw;
 }
-
 .form-champtext > .form-group{
     display: flex;
     justify-content:space-between;
@@ -34,7 +31,6 @@
 .form-group > label {
     width:40%;
 }
-
 .my-custom-scrollbar {
     position: relative;
     height: 40vh;
