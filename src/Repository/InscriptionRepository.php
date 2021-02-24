@@ -21,7 +21,7 @@ class InscriptionRepository extends ServiceEntityRepository
     public function getSortieInscrit($user){
 
         $qb = $this->createQueryBuilder('i');
-        //$qb->select("i.sortie_id");
+
         $qb->where('i.participant = :user')->setParameter('user',$user);
         $query = $qb->getQuery();
         return $query->getResult();
