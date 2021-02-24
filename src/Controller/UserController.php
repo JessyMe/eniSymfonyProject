@@ -54,7 +54,7 @@ class UserController extends AbstractController
 
                 }
                 $user->setPhoto($newFilename);
-                $user->setPhoto(new File($this->getParameter('photoProfil_directory').'/'.$user->getPhoto()));
+//                $user->setPhoto(new File($this->getParameter('photoProfil_directory').'/'.$user->getPhoto()));
             }
 
             $em->persist($user);
