@@ -6,6 +6,7 @@
 {% block main %}
     <div class="container">
         <h1 class= "text-align: center"> Créer une sortie </h1>
+        <i class="fas fa-plus-circle"></i>
 
         {{ form_start(sortieForm) }}
         {{ form_widget(sortieForm) }}
@@ -14,21 +15,10 @@
 
     </div>
 
-    <footer>
-        <script type="text/javascript">
-            window.onload = function()
-            {
-                if (window.jQuery)
-                {
-                    alert('jQuery is loaded');
-                }
-                else
-                {
-                    alert('jQuery is not loaded');
-                }
-            }
-        </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="{{ asset('app.js') }}"></script>
-    </footer>
+
+
+{% endblock %}
+{% block footer %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('app.js') }}"></script>
 {% endblock %}

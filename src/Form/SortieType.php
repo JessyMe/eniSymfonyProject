@@ -27,20 +27,20 @@ class SortieType extends AbstractType
             ->add('nom', TextType::class, [
                 'label' => 'Nom de la sortie :'
             ])
-           /*->add('datedebut', DateTimeType::class, [
+            ->add('datedebut', DateTimeType::class, [
                 'label' => 'Date et heure de la sortie :',
                 'widget' => 'choice',
             ])
              ->add('datecloture', DateType::class, [
                 'label' => 'Date limite d\'inscription :',
                 'widget' => 'choice',
-            ])*/
+            ])
             ->add('nbInscriptionMax', IntegerType::class, [
                 'label' => 'Nombre de places :',
                 'attr' => ['class' => 'form-control',
                     'placeholder' => '20']
             ])
-            /*->add('duree', IntegerType::class, [
+            ->add('duree', IntegerType::class, [
                 'attr' => ['class' => 'form-control',
                     'placeholder' => '90']
             ])
@@ -48,7 +48,7 @@ class SortieType extends AbstractType
                 'label' => 'Description et infos :',
                 'attr' => ['class' => 'form-control']
 
-            ])*/
+            ])
             ->add('ville', EntityType::class, [
                 'class' => Ville::class,
                 'placeholder' => 'Sélectionner la ville',
@@ -69,7 +69,6 @@ class SortieType extends AbstractType
                     'placeholder' => 'Sélectionner le lieu',
                     'label' => 'Lieu',
                     'choices' => $form->getData()->getLieux()
-
 
                 ]);
             }

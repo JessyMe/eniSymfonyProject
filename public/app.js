@@ -7,8 +7,6 @@ $sortie_ville.change(function()
         let data = {}
 
         data[$token.attr('nom')] = $token.val()
-        data[$token.attr('nbInscriptionMax')] = $token.val()
-
         data[$sortie_ville.attr('name')] = $sortie_ville.val()
 
        $.post($form.attr('action'), data).then(function (response)
@@ -19,8 +17,4 @@ $sortie_ville.change(function()
            }
        )
     })
-function log($message)
-{
-    $message= "you are in log"
-    console.log($message)
-}
+
