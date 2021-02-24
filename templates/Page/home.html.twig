@@ -1,43 +1,45 @@
 {% extends 'layout.html.twig' %}
 {%  block style %}<link rel="stylesheet" href="{{ asset('css/style_home.css') }}">{% endblock %}
 {% block main %}
-
+    {% form_theme sortieForm 'bootstrap_4_layout.html.twig' %}
     {{ form_start(sortieForm) }}
-    <div class="formHome row">
-        <div class="formHome col-sm-1 col-md-1 col-lg-5">
-
+    <div class="formHome ">
+        <div class="row">
+        <div class="formHome-col col-lg-4 col-md-6">
+            <div class="form-champtext">
             {{ form_row(sortieForm.campus) }}
-
+            </div>
+{#            ,{'attr':{'class':'form-floating'}}#}
+            <div class="form-champtext">
             {{ form_row(sortieForm.nom) }}
-            <div class="form-group">
+            </div>
+            <div class="form-champdate">
                 <label for="">Entre</label>
                 {{ form_row(sortieForm.datedebut) }}
             </div>
-            <div class="form-group">
+            <div class="form-champdate">
                 <label for="">et</label>
                 {{ form_row(sortieForm.datefin) }}
             </div>
 
         </div>
-        <div class="formHome-col col-sm-1 col-md-1 col-lg-4">
+        <div class="formHome-col col-lg col-md-6">
             {{ form_row(sortieForm.SortieOrganisateur) }}
             {{ form_row(sortieForm.SortieInscrit) }}
             {{ form_row(sortieForm.SortieNonInscrit) }}
             {{ form_row(sortieForm.SortiePassee) }}
         </div>
-        <div class="col-sm-1 col-md-1 col-lg-2">
-            <div>
-                {% if (user) %}
-                    Date du jour : {{ 'now' | date('d/m/y') }}
-                    Participant : {{ app.user.pseudo }}
-                {% endif %}
-            </div>
-            <button type="submit" class="btn btn-dark">Rechercher</button>
+        <div class="formHome-col col-lg ">
+            {% if (user) %}
+                <div >Date du jour : {{ 'now' | date('d/m/y') }} </div>
+                <div class="mt-1">Participant : {{ app.user.pseudo }}</div>
+            {% endif %}
+            <button type="submit" class="mt-5 btn btn-primary ">Rechercher</button>
         </div>
 
-    </div>
     {{ form_end(sortieForm) }}
-
+        </div>
+    </div>
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
     <table class="table table-bordered table-striped mb-0">
         <thead>
@@ -105,11 +107,11 @@
                 {% if app.user != null%}
                     {% if( sortie.etat.id == 2 ) %}
                         {% set userInscrit = false %}
-                        {% for inscription in inscriptions %}
-                            {% if inscription.sortie.id == sortie.id and inscription.participant.id == app.user.id  %}
-                                {% set userInscrit = true %}
-                            {% endif %}
-                        {% endfor %}
+                            {% for inscription in inscriptions %}
+                                {% if inscription.sortie.id == sortie.id and inscription.participant.id == app.user.id  %}
+                                    {% set userInscrit = true %}
+                                {% endif %}
+                            {% endfor %}
                         {% if userInscrit == false %}
                             <a href="{{ path('sortie_inscription', {'id': sortie.id}) }}">S'inscrire</a>
                         {% endif %}
@@ -127,7 +129,9 @@
     </div>
 <div>
     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+    <div class=" m-2">
 <button class="btn btn-light"><a href="{{ path('sortie_add')}}">Créer une sortie</a></button>
+    </div>
     {% endif %}
 </div>
 
