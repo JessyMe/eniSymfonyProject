@@ -6,29 +6,39 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            {% if app.user !=null and app.user.roles == "ROLE_ADMIN %}" %}
-            <li class="nav-item ">
-                <a class="nav-link" href="#" aria-disabled="true">Ville</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" aria-disabled="true">Campus</a>
-            </li>
+
+
+            {% if app.user !=null %}
+                {% for role in app.user.roles %}
+                    {%if role == 'ROLE_ADMIN' %}
+                        <li class="nav-item ">
+                            <a class="nav-link" href="#" aria-disabled="true">Ville</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" aria-disabled="true">Campus</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
             {% endif %}
+            {% if app.user != null %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('main_home') }}" aria-disabled="true">Accueil</a>
             </li>
+            {% endif %}
             <li class="nav-item ">
                 <a class="nav-link" href="{{ path('app_login') }}" aria-disabled="true">Se connecter</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('register') }}" aria-disabled="true">S'inscrire</a>
             </li>
+            {% if app.user != null %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('user_profil') }}" aria-disabled="true">Mon profil</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_logout') }}" aria-disabled="true">Se déconnecter</a>
             </li>
+            {% endif %}
         </ul>
 
     </div>
