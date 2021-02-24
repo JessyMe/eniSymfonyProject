@@ -27,14 +27,16 @@ class SortieType extends AbstractType
             ->add('nom', TextType::class, [
                 'label' => 'Nom de la sortie :'
             ])
-            ->add('datedebut', DateTimeType::class, [
+            /*->add('datedebut', DateTimeType::class, [
                 'label' => 'Date et heure de la sortie :',
-                'widget' => 'choice',
+                'widget' => 'single_text'
+
             ])
-             ->add('datecloture', DateType::class, [
+            ->add('datecloture', DateType::class, [
                 'label' => 'Date limite d\'inscription :',
-                'widget' => 'choice',
-            ])
+                'widget' => 'single_text'
+
+            ])*/
             ->add('nbInscriptionMax', IntegerType::class, [
                 'label' => 'Nombre de places :',
                 'attr' => ['class' => 'form-control',
@@ -57,11 +59,9 @@ class SortieType extends AbstractType
             ]);
 
 
-
         $builder->get('ville')->addEventListener(
             FormEvents::POST_SUBMIT,
-            function (FormEvent $event)
-            {
+            function (FormEvent $event) {
                 $form = $event->getForm();
 
                 $form->getParent()->add('lieu', EntityType::class, [
@@ -76,14 +76,12 @@ class SortieType extends AbstractType
 
         $builder->addEventListener(
             FormEvents::POST_SET_DATA,
-            function (FormEvent $event)
-            {
+            function (FormEvent $event) {
                 $form = $event->getForm();
                 $data = $event->getData();
                 $lieu = $data->getLieu();
 
-                if ($lieu)
-                {
+                if ($lieu) {
                     $form->get('ville')->setData($lieu->getVille());
 
                     $form->add('lieu', EntityType::class, [
@@ -94,20 +92,27 @@ class SortieType extends AbstractType
 
                     ]);
 
-                }else {
+                } else {
 
                     $form->add('lieu', EntityType::class, [
                         'class' => Lieu::class,
                         'placeholder' => 'Sélectionner le lieu',
                         'label' => 'Lieu',
-                        'choices' => []
+                        'choices' => [],
+                    ])
+                        ->add('save', SubmitType::class, [
+                            'label' => 'Enregistrer'
+                        ])
+                        ->add('saveAndAdd', SubmitType::class, [
+                            'label' => 'Publier',
+                        ])
+                        ->add('Annuler', ResetType::class, [
+                            'label' => 'Annuler'
                         ]);
                 }
-
-            }
-        );
-
+            });
     }
+}
 
             // pour ajouter un nouveau lieu, utiliser partie 1 doc Form Based on the Underlying Data
 
@@ -157,13 +162,7 @@ class SortieType extends AbstractType
             'label'=> 'Publier',
         ])
         ->add('Annuler', ResetType::class);
-->add('save', SubmitType::class, [
-'label'=> 'Enregistrer'
-])
-->add('saveAndAdd', SubmitType::class, [
-'label'=> 'Publier',
-])
-->add('Annuler', ResetType::class)*/
+
 
 
 

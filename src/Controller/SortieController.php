@@ -4,13 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Etat;
 use App\Entity\Inscription;
-use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\User;
-use App\Entity\Ville;
-use App\Form\LieuType;
 use App\Form\SortieType;
-use App\Form\VilleType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,6 +29,9 @@ class SortieController extends AbstractController
 
     /**
      * @Route ("", name="sortie_add")
+     * @param EntityManagerInterface $em
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function add(EntityManagerInterface $em, Request $request)
     {
