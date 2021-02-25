@@ -31,8 +31,8 @@
                 <div class="mt-1" id="campusRowForm"> {{ sortie.campus.nomCampus }}</div>
                 {{ form_row(sortieForm.ville) }}
                 <div >
-                    {{ form_row(sortieForm.lieu) }}
                     <a href="{{ path('sortie_addLieu') }}"><i class="fas fa-plus-circle"></i></a>
+                    {{ form_row(sortieForm.lieu) }}
                 </div>
             </div>
         </div>
@@ -45,7 +45,8 @@
                     {{ form_row(sortieForm.save) }}
                 </div>
                 <div class="col">
-                    {{ form_row(sortieForm.reset) }}
+                        {{ form_row(sortieForm.reset) }}
+                    </div>
                 </div>
         </div>
         {{ form_end(sortieForm) }}
