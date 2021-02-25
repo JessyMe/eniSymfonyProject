@@ -24,8 +24,6 @@ class AppExtension extends AbstractExtension
     public function todayConvert()
     {
 
-
-
         $nowmoins = date('y-m-d', strtotime('- 1 month'));
         $nowmoinsConvert = DateTime::createFromFormat("y-m-d",$nowmoins,null);
         return $nowmoinsConvert;
