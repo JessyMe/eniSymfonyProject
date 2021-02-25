@@ -47,3 +47,4 @@ security:
          - { path: ^/profil, roles: ROLE_USER }
          - { path: ^/sortie, roles: ROLE_USER }
          - { path: ^/modifier, roles: ROLE_USER }
+         - { path: ^/m, roles: ROLE_USER }
