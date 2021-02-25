@@ -8,6 +8,9 @@
         <h1 class= "text-align: center"> Créer une sortie </h1>
 
         {{ form_start(sortieForm) }}
+        {{ form_row(sortieForm.nom) }}
+        {{ form_row(sortieForm.datedebut) }}
+        {{ form_row(sortieForm) }}
         <div class="mt-1">Campus : {{ sortie.campus.nomCampus }}</div>
         {{ form_widget(sortieForm) }}
         {{ form_end(sortieForm) }}
