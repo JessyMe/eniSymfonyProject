@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-
-        <meta charset="UTF-8">
+    <head> <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="author" content="Mathieu Chenoun, Sylvain Garcia, Nicolas Champion, Jessy Mercer">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <h1>Le turquoise c'est la vie </h1>
-
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
-        {% block main %}
-            <p> Hello dream team ! </p>
-        {% endblock %}
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
+        <link rel="shortcut icon" type="image/png" href="{{ asset('img/logo2.png') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap/css/styles.css') }}">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <script src="https://kit.fontawesome.com/5b9ff3e9c5.js" crossorigin="anonymous"></script>
+        {% block style %}{% endblock %}
+        <title>{% block title%}Sortir.com{% endblock %}</title>
     </head>
     <body>
         {% block header %}{% endblock %}
-        {% block body %}{% endblock %}
+        {% block main %}{% endblock %}
         {% block footer %}{% endblock %}
     </body>
 </html>

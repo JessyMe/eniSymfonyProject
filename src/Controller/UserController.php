@@ -39,7 +39,6 @@ class UserController extends AbstractController
             $hashed = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hashed);
 
-//            /** @var UploadedFile $brochureFile */
             $brochureFile = $registerForm->get('photo')->getData();
 
             if ($brochureFile)
@@ -53,8 +52,7 @@ class UserController extends AbstractController
                 } catch (FileException $e){
 
                 }
-                $user->setPhoto($newFilename);
-//                $user->setPhoto(new File($this->getParameter('photoProfil_directory').'/'.$user->getPhoto()));
+//                $user->setPhoto($newFilename);
             }
 
             $em->persist($user);
@@ -88,7 +86,6 @@ class UserController extends AbstractController
             $hashed = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hashed);
 
-//            /** @var UploadedFile $brochureFile */
            $brochureFile = $registerForm->get('photo')->getData();
 
             if ($brochureFile)
@@ -101,7 +98,6 @@ class UserController extends AbstractController
                     $brochureFile->move($this->getParameter('photoProfil_directory'), $newFilename);
                 } catch (FileException $e){}
                 $user->setPhoto($newFilename);
-//                $user->setPhoto(new File($this->getParameter('photoProfil_directory').'/'.$user->getPhoto()));
             }
 
             $em->flush();
