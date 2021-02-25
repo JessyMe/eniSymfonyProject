@@ -39,4 +39,8 @@
 .table-wrapper-scroll-y {
     display: block;
 }
-
+.sortieNull{
+    width: 100vw;
+    display:flex;
+    text-align: center;
+}
