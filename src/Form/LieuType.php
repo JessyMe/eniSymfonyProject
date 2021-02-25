@@ -15,6 +15,15 @@ class LieuType extends AbstractType
     {
         $builder
 
+            ->add('ville', EntityType::class,[
+                'class'=> Ville::class,
+                'placeholder'=>'Code Postal',
+                'label'=> 'Code Postal',
+                'choice_label'=>function($ville){
+                return $ville->getCodePostal();
+                }
+
+            ])
             ->add('nomLieu')
             ->add('rue')
             ->add('latitude')
