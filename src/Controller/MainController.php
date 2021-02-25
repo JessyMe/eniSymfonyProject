@@ -37,7 +37,7 @@ class MainController extends AbstractController
     //--------------- Desktop --------------------------------
         if ($mobileOrNot === false)
         {
-            // $this->setEtatSortie();
+
             //Liste Campus pour menu déroulant
             $campusRepository = $this->getDoctrine()->getRepository(Campus::class);
             $campus = $campusRepository->findAll();
@@ -93,14 +93,9 @@ class MainController extends AbstractController
             $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
             $sortieCampusUser = $sortieRepository->findBy(['campus' => $user[0]->getCampus()]);
             dump($sortieCampusUser);
-            //Liste des inscriptions pour affichage
-            $InscriptionRepository = $this->getDoctrine()->getRepository(Inscription::class);
-            $inscriptions = $InscriptionRepository->findAll();
-
 
             return $this->render('Page/homeMobile.html.twig',
                 ["user"=>$userLog,
-                    "inscriptions"=>$inscriptions,
                     "sorties"=>$sortieCampusUser
                     ]);
 
