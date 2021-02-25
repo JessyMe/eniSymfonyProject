@@ -27,7 +27,7 @@ class SortieType extends AbstractType
             ->add('nom', TextType::class, [
                 'label' => 'Nom de la sortie :'
             ])
-            /*->add('datedebut', DateTimeType::class, [
+            ->add('datedebut', DateTimeType::class, [
                 'label' => 'Date et heure de la sortie :',
                 'widget' => 'single_text'
 
@@ -36,7 +36,7 @@ class SortieType extends AbstractType
                 'label' => 'Date limite d\'inscription :',
                 'widget' => 'single_text'
 
-            ])*/
+            ])
             ->add('nbInscriptionMax', IntegerType::class, [
                 'label' => 'Nombre de places :',
                 'attr' => ['class' => 'form-control',
@@ -56,8 +56,8 @@ class SortieType extends AbstractType
                 'placeholder' => 'Sélectionner la ville',
                 'label' => 'ville',
                 'mapped' => false,
-            ]);
-
+            ])
+/*
         $builder->get('ville')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) {
@@ -132,7 +132,7 @@ class SortieType extends AbstractType
    }
 }*/
     // partie à décommenter pour avoir le formulaire sans ajax
-          /*  ->add('ville', EntityType::class,
+            ->add('ville', EntityType::class,
                 [
                     'class' => Ville::class,
                     'choice_label' => function ($ville) {
@@ -163,7 +163,7 @@ class SortieType extends AbstractType
             ->add('Annuler', ResetType::class);
 
     }
-}*/
+
 
 
 

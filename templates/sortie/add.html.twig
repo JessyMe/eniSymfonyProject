@@ -7,11 +7,10 @@
     <div class="container">
         <h1 class= "text-align: center"> Créer une sortie </h1>
 
-
         {{ form_start(sortieForm) }}
+        <div class="mt-1">Campus : {{ sortie.campus.nomCampus }}</div>
         {{ form_widget(sortieForm) }}
         {{ form_end(sortieForm) }}
-
         <a href="{{ path('sortie_addLieu') }}"><i class="fas fa-plus-circle"></i></a>
     </div>
 

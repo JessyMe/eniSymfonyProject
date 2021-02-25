@@ -58,16 +58,6 @@ class NewLieuType extends AbstractType
                 'mapped' => false,
             ])
 
-             ->add('ville', EntityType::class, [
-                'class' => Ville::class,
-                'choice_label' => function ($ville) {
-                 return $ville->getNomVille($ville);
-                },
-                'mapped' => false,
-                'placeholder' => 'Selectionner la ville',
-                'required' => false,
-
-             ])
             ->add('lieu', LieuType::class)
 
             ->add('save', SubmitType::class, [
@@ -79,6 +69,7 @@ class NewLieuType extends AbstractType
             ->add('Annuler', ResetType::class);
 
         }
+
 
     public function configureOptions(OptionsResolver $resolver)
     {

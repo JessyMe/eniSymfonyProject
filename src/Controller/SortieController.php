@@ -61,10 +61,12 @@ class SortieController extends AbstractController
         }
 
         return $this->render("sortie/add.html.twig", [
+            "sortie"=>$sortie,
             'sortieForm'=>$sortieForm->createView(),
 
         ]);
     }
+
 
     /**
      * @Route ("nouveauLieu", name="sortie_addLieu")
@@ -74,7 +76,7 @@ class SortieController extends AbstractController
      */
     public function addLieu (EntityManagerInterface $em, Request $request)
     {
-        //$user = $this->get('security.context')->getToken()->getUser();
+
         $user = $em->getRepository(User::class)->find($this->getUser());
         $etat = $this->getDoctrine()
             ->getRepository(Etat::class)
@@ -99,6 +101,7 @@ class SortieController extends AbstractController
         }
 
         return $this->render("sortie/add.html.twig", [
+            "sortie"=>$sortie,
             'sortieForm'=>$sortieForm->createView(),
 
         ]);
