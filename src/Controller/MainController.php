@@ -63,8 +63,10 @@ class MainController extends AbstractController
                         "sortieForm"=>$sortieForm->createView()]);
             }else{
                 $userLog = $this->getUser();
+
                 $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-                $sorties = $sortieRepository->findAll();
+                $sorties = $sortieRepository->findWithoutArchive();
+
                 return $this->render('Page/home.html.twig',
                     ["user"=>$userLog,
                         "inscriptions"=>$inscriptions,

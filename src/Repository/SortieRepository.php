@@ -4,6 +4,7 @@ namespace App\Repository;
 
 
 use App\Entity\Sortie;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -22,9 +23,22 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+    public function findWithoutArchive()
+    {
+        //conversion date du jour
+        $nowmoins = date('y-m-d', strtotime('- 1 month'));
+        $todayConvert = DateTime::createFromFormat("y-m-d",$nowmoins,null);
+        dump($todayConvert);
 
+        $qb = $this->createQueryBuilder('s');
+        $qb->andwhere('s.datedebut > :todayConvert')->setParameter('todayConvert',$todayConvert);
+        $query = $qb->getQuery();
+        return $query->getResult();
 
-     public function findByFormFilter( $listFormSortie, $userLog){
+    }
+
+     public function findByFormFilter( $listFormSortie, $userLog)
+     {
         $campus = $listFormSortie->getCampus();
         $nom = $listFormSortie->getNom();
         $datedebut = $listFormSortie->getdatedebut();
@@ -35,6 +49,12 @@ class SortieRepository extends ServiceEntityRepository
         $sortiePassee = $listFormSortie->getSortiePassee();
 
         $qb = $this->createQueryBuilder('s');
+        //sans sortie archivées
+         $nowmoins = date('y-m-d', strtotime('- 1 month'));
+         $todayConvert = DateTime::createFromFormat("y-m-d",$nowmoins,null);
+        $qb->andwhere('s.datedebut > :todayConvert')->setParameter('todayConvert',$todayConvert);
+
+
         if($campus) $qb->andWhere('s.campus = :campus')->setParameter('campus',$campus);
         if($nom) $qb->andWhere('s.nom LIKE :nom')->setParameter('nom','%'.$nom.'%');
         if($datedebut && $datefin) $qb->andWhere('s.datedebut BETWEEN :datedebut AND :datefin')
@@ -52,11 +72,7 @@ class SortieRepository extends ServiceEntityRepository
 
         }
         if($sortiePassee) $qb->andwhere('s.etat = 5');
-
-
-
          $query = $qb->getQuery();
-
          return $query->getResult();
 
 
@@ -65,42 +81,16 @@ class SortieRepository extends ServiceEntityRepository
 
      }
 
-     public function findByEtat (int $etat){
-
-        $qb = $this->createQueryBuilder('s');
-        $qb->andWhere('s.etat = :etat ')
-            ->setParameter('etat', $etat);
-        $query = $qb->getQuery();
-        return $query->getResult();
-     }
-
-
-    // /**
-    //  * @return Sortie[] Returns an array of Sortie objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
+//     public function findByEtat (int $etat){
 //
-//    public function findOneBySomeField($value): ?Sortie
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere(s.campus = :val)
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+//        $qb = $this->createQueryBuilder('s');
+//        $qb->andWhere('s.etat = :etat ')
+//            ->setParameter('etat', $etat);
+//        $query = $qb->getQuery();
+//        return $query->getResult();
+//     }
+
+
+
 
 }
