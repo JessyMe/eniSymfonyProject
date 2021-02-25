@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block main %}
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <table class="table table-bordered table-striped mb-0">
+    {#------------------------- Tab Head --------------------------------#}
+            <thead class="sticky-top">
+            <tr>
+                <th scope="col">Pseudo</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Role</th>
+                <th scope="col">Changer de role</th>
+            </tr>
+            </thead>
+    {#------------------------- Tab body --------------------------------#}
+            <tbody>
+            {% for user in users %}
+            <tr>
+                <td>
+                    {{ user.pseudo }}
+                </td>
+                <td>
+                    {{ user.nom }}
+                </td>
+                <td>
+                    {{ user.prenom }}
+                </td>
+                <td>
+                    {{ user.roles | json_encode }}
+                </td>
+                <td>
+                    {% if user.roles == ["ROLE_USER"] %}
+                        <a href="{{ path('admin_roleadmin', {'id': user.id}) }}">Change to admin</a>
+                    {% else %}
+                        <a href="{{ path('admin_roleuser', {'id': user.id}) }}">Change to user</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+{% endblock %}
