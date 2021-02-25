@@ -2,27 +2,55 @@
 
 {% block title %}Nouvelle sortie{% endblock %}
 {% form_theme sortieForm 'bootstrap_4_layout.html.twig' %}
-
 {% block main %}
+
     <div class="container">
-        <h1 class= "text-align: center"> Créer une sortie </h1>
-
+        <div class="row align-items-center">
+            <div class="col">
+                <h1 id="formH1"> Créer une sortie </h1>
+            </div>
+        </div>
         {{ form_start(sortieForm) }}
-        {{ form_row(sortieForm.nom) }}
-        <div class="mt-1">Campus : {{ sortie.campus.nomCampus }}</div>
-        {{ form_row(sortieForm.datedebut) }}
-        {{ form_row(sortieForm.datecloture) }}
-        {{ form_row(sortieForm.nbInscriptionMax) }}
-        {{ form_row(sortieForm.duree) }}
-        {{ form_row(sortieForm.descriptionInfos) }}
-        {{ form_row(sortieForm.ville) }}
+        <div class="row">
+            <div class="col">
 
-        <a href="{{ path('sortie_addLieu') }}"><i class="fas fa-plus-circle"></i></a>
-        {{ form_row(sortieForm.lieu) }}
+                {{ form_row(sortieForm.nom) }}
+                {{ form_row(sortieForm.datedebut) }}
+                {{ form_row(sortieForm.datecloture) }}
+                <div class = "input-group input-group-xs">
+                {{ form_row(sortieForm.nbInscriptionMax) }}
+                </div>
+                <div class="input-group input-group-xs">
+                    {{ form_row(sortieForm.duree) }}
+                </div>
+                {{ form_row(sortieForm.descriptionInfos) }}
+            </div>
 
-        {{ form_widget(sortieForm) }}
+            <div class="col">
+                <label > Votre campus </label>
+                <div class="mt-1" id="campusRowForm"> {{ sortie.campus.nomCampus }}</div>
+                {{ form_row(sortieForm.ville) }}
+                <div >
+                    {{ form_row(sortieForm.lieu) }}
+                    <a href="{{ path('sortie_addLieu') }}"><i class="fas fa-plus-circle"></i></a>
+                </div>
+            </div>
+        </div>
+
+            <div class="row align-items-center ">
+                <div class="col">
+                    {{ form_row(sortieForm.saveAndAdd) }}
+                </div>
+                <div class="col">
+                    {{ form_row(sortieForm.save) }}
+                </div>
+                <div class="col">
+                    {{ form_row(sortieForm.reset) }}
+                </div>
+        </div>
         {{ form_end(sortieForm) }}
-    </div>
+</div>
+
 
     <footer>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

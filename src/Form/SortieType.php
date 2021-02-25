@@ -57,6 +57,58 @@ class SortieType extends AbstractType
                 'label' => 'ville',
                 'mapped' => false,
             ])
+
+            ->add('ville', EntityType::class,
+                [
+                    'class' => Ville::class,
+                    'choice_label' => function ($ville) {
+                        return $ville->getNomVille($ville);
+                    },
+                    'mapped' => false,
+                    'placeholder' => 'Selectionner la ville',
+                    'required' => false,
+
+                ])
+
+            ->add('lieu', EntityType::class,
+                [
+                'class' => Lieu::class,
+                'label'=>'Lieu',
+                'choice_label'=>function($lieu){
+                    return $lieu->getNomLieu();
+                },
+                'placeholder'=>'Choisir un lieu'
+                ])
+
+            ->add('save', SubmitType::class, [
+            'label'=> 'Enregistrer',
+            'row_attr' => ['class' => 'text-editor', 'id' => 'save']
+        ])
+            ->add('saveAndAdd', SubmitType::class, [
+            'label'=> 'Publier',
+                'row_attr' => ['class' => 'text-editor', 'id' => 'saveAndAdd']
+        ])
+            ->add('reset', ResetType::class, [
+                'label'=> 'Annuler',
+                'row_attr' => ['class' => 'text-editor', 'id' => 'reset']
+            ]);
+
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Sortie::class,
+
+        ]);
+    }
+}
+
+
+//Code pour requêtes ajax en cours de réalisation
+// lien entre ville et choix lieu actif,
+// problème avec dates du formulaire à régler
+
 /*
         $builder->get('ville')->addEventListener(
             FormEvents::POST_SUBMIT,
@@ -112,66 +164,3 @@ class SortieType extends AbstractType
             });
     }
 
-    // code proche de la doc symfony
-
-/* $builder->addEventListener(
-           FormEvents::PRE_SET_DATA,
-           function (FormEvent $event) {
-               $form = $event->getForm();
-               $data = $event->getData();
-
-               $ville = $data->getVille();
-               $lieu = null === $ville ? [] : $ville->getLieux();
-               $form->add('lieu', EntityType::class, [
-                   'class' => Lieu::class,
-                   'placeholder' => '',
-                   'choices' => $lieu,
-               ]);
-           }
-       );
-   }
-}*/
-    // partie à décommenter pour avoir le formulaire sans ajax
-            ->add('ville', EntityType::class,
-                [
-                    'class' => Ville::class,
-                    'choice_label' => function ($ville) {
-                        return $ville->getNomVille($ville);
-                    },
-                    'mapped' => false,
-                    'placeholder' => 'Selectionner la ville',
-                    'required' => false,
-
-                ])
-
-            ->add('lieu', EntityType::class,
-                [
-                'class' => Lieu::class,
-                'label'=>'Lieu',
-                'choice_label'=>function($lieu){
-                    return $lieu->getNomLieu();
-                },
-                'placeholder'=>'Choisir un lieu'
-                ])
-
-            ->add('save', SubmitType::class, [
-            'label'=> 'Enregistrer'
-        ])
-            ->add('saveAndAdd', SubmitType::class, [
-            'label'=> 'Publier',
-        ])
-            ->add('Annuler', ResetType::class);
-
-    }
-
-
-
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Sortie::class,
-
-        ]);
-    }
-}
