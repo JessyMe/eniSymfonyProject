@@ -58,7 +58,6 @@ class SortieType extends AbstractType
                 'mapped' => false,
             ]);
 
-
         $builder->get('ville')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) {
@@ -74,8 +73,8 @@ class SortieType extends AbstractType
             }
         );
 
-        $builder->addEventListener(
-            FormEvents::POST_SET_DATA,
+            $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
             function (FormEvent $event) {
                 $form = $event->getForm();
                 $data = $event->getData();
@@ -114,12 +113,24 @@ class SortieType extends AbstractType
     }
 }
 
-            // pour ajouter un nouveau lieu, utiliser partie 1 doc Form Based on the Underlying Data
+/* $builder->addEventListener(
+           FormEvents::PRE_SET_DATA,
+           function (FormEvent $event) {
+               $form = $event->getForm();
+               $data = $event->getData();
 
-
-            /*->add('campus')
-            };
-            ->add('ville', EntityType::class,
+               $ville = $data->getVille();
+               $lieu = null === $ville ? [] : $ville->getLieux();
+               $form->add('lieu', EntityType::class, [
+                   'class' => Lieu::class,
+                   'placeholder' => '',
+                   'choices' => $lieu,
+               ]);
+           }
+       );
+   }
+}*/
+          /*  ->add('ville', EntityType::class,
                 [
                     'class' => Ville::class,
                     'choice_label' => function ($ville) {
@@ -129,39 +140,34 @@ class SortieType extends AbstractType
                     'placeholder' => 'Selectionner la ville',
                     'required' => false,
 
-                ]);
+                ])
 
-        $builder->get('ville')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-                $form->add('lieu', EntityType::class, [
-                    'class' => Lieu::class,
-                    'placeholder' => 'Sélectionner le lieu',
-                    'label'=> 'Lieu',
-            ]);
-            }
-
-
-        );
-    }
-
-            //->add('lieu', LieuType::class)
-           /* ->add('lieu', EntityType::class, [
+            ->add('lieu', EntityType::class,
+                [
                 'class' => Lieu::class,
                 'label'=>'Lieu',
                 'choice_label'=>function($lieu){
                     return $lieu->getNomLieu();
                 },
-                'placeholder'=>'Choisir un lieu'])
+                'placeholder'=>'Choisir un lieu'
+                ])
 
-        /*->add('save', SubmitType::class, [
+            ->add('save', SubmitType::class, [
             'label'=> 'Enregistrer'
         ])
-        ->add('saveAndAdd', SubmitType::class, [
+            ->add('saveAndAdd', SubmitType::class, [
             'label'=> 'Publier',
         ])
-        ->add('Annuler', ResetType::class);
+            ->add('Annuler', ResetType::class);
+
+    }
+}*/
+
+
+            // pour ajouter un nouveau lieu, utiliser partie 1 doc Form Based on the Underlying Data
+            /*->add('campus')
+             }
+
 
 
 

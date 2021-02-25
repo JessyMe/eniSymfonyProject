@@ -6,6 +6,7 @@ use App\Entity\Etat;
 use App\Entity\Inscription;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Form\NewLieuType;
 use App\Form\SortieType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -63,6 +64,45 @@ class SortieController extends AbstractController
             'sortieForm'=>$sortieForm->createView(),
 
         ]);
+    }
+
+    /**
+     * @Route ("nouveauLieu", name="sortie_addLieu")
+     * @param EntityManagerInterface $em
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function addLieu (EntityManagerInterface $em, Request $request)
+    {
+        //$user = $this->get('security.context')->getToken()->getUser();
+        $user = $em->getRepository(User::class)->find($this->getUser());
+        $etat = $this->getDoctrine()
+            ->getRepository(Etat::class)
+            ->find('1');
+
+        $sortie = new Sortie();
+        $sortie->setEtat($etat);
+        $sortie->setCampus( $user->getCampus());
+        $sortieForm = $this->createForm(NewLieuType::class, $sortie);
+
+        $sortieForm->handleRequest($request);
+
+
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid())
+        {
+            $sortie->setOrganisateur($user);
+            $em->persist($sortie);
+            $em->flush();
+
+            $this->addFlash('success', 'Nouvelle sortie publiée');
+            return $this->redirectToRoute("main_home");
+        }
+
+        return $this->render("sortie/add.html.twig", [
+            'sortieForm'=>$sortieForm->createView(),
+
+        ]);
+
     }
 
     /**
