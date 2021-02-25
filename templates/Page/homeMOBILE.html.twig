@@ -1,0 +1,45 @@
+{% extends 'layout.html.twig' %}
+{%  block style %}<link rel="stylesheet" href="{{ asset('css/style_home_MOBILE.css') }}">{% endblock %}
+{% block main %}
+
+
+{#-----------------------------------------------------------------------------#}
+{#------------------- Affichage du tableau des sorties ------------------------#}
+{#-----------------------------------------------------------------------------#}
+{% if sorties == null %}
+    <div class="sortieNull">Aucune sortie disponible</div>
+{% else %}
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <table class="table table-bordered table-striped mb-0">
+{#------------------------- Tab Head --------------------------------#}
+            <thead class="sticky-top">
+            <tr>
+                <th scope="col">Nom de la sortie</th>
+                <th scope="col">Date de la sortie</th>
+                <th scope="col">Lieu</th>
+            </tr>
+            </thead>
+{#------------------------- Tab body --------------------------------#}
+            <tbody>
+            {% for sortie in sorties %}
+            <tr>
+                <td>
+                    <a href="{{ path('afficherSortie', {'id': sortie.id}) }}">{{ sortie.nom }}</a>
+                </td>
+                <td>
+                    {{ sortie.datedebut|date('d/m/y - H:i') }}
+                </td>
+                <td>
+                    {{ sortie.lieu.ville }}
+                </td>
+
+            </tr>
+            {% endfor %}
+    </tbody>
+    </table>
+                </div>
+
+
+{% endif %}
+
+{% endblock %}
