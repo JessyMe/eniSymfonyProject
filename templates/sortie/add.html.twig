@@ -9,12 +9,19 @@
 
         {{ form_start(sortieForm) }}
         {{ form_row(sortieForm.nom) }}
-        {{ form_row(sortieForm.datedebut) }}
-        {{ form_row(sortieForm) }}
         <div class="mt-1">Campus : {{ sortie.campus.nomCampus }}</div>
+        {{ form_row(sortieForm.datedebut) }}
+        {{ form_row(sortieForm.datecloture) }}
+        {{ form_row(sortieForm.nbInscriptionMax) }}
+        {{ form_row(sortieForm.duree) }}
+        {{ form_row(sortieForm.descriptionInfos) }}
+        {{ form_row(sortieForm.ville) }}
+
+        <a href="{{ path('sortie_addLieu') }}"><i class="fas fa-plus-circle"></i></a>
+        {{ form_row(sortieForm.lieu) }}
+
         {{ form_widget(sortieForm) }}
         {{ form_end(sortieForm) }}
-        <a href="{{ path('sortie_addLieu') }}"><i class="fas fa-plus-circle"></i></a>
     </div>
 
     <footer>
