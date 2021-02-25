@@ -111,7 +111,8 @@ class SortieType extends AbstractType
                 }
             });
     }
-}
+
+    // code proche de la doc symfony
 
 /* $builder->addEventListener(
            FormEvents::PRE_SET_DATA,
@@ -130,6 +131,7 @@ class SortieType extends AbstractType
        );
    }
 }*/
+    // partie à décommenter pour avoir le formulaire sans ajax
           /*  ->add('ville', EntityType::class,
                 [
                     'class' => Ville::class,
@@ -162,13 +164,6 @@ class SortieType extends AbstractType
 
     }
 }*/
-
-
-            // pour ajouter un nouveau lieu, utiliser partie 1 doc Form Based on the Underlying Data
-            /*->add('campus')
-             }
-
-
 
 
 
