@@ -16,13 +16,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\Validator\Constraints\File;
 
 
 class UserController extends AbstractController
 {
     /**
      * @Route("/register", name="register")
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param UserPasswordEncoderInterface $encoder
+     * @param SluggerInterface $slugger
+     * @return Response
      */
     public function register(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, SluggerInterface $slugger): Response
     {
@@ -52,7 +56,7 @@ class UserController extends AbstractController
                 } catch (FileException $e){
 
                 }
-//                $user->setPhoto($newFilename);
+                $user->setPhoto($newFilename);
             }
 
             $em->persist($user);

@@ -173,8 +173,11 @@ class SortieController extends AbstractController
 
     /**
      * @Route ("/inscription/{id}", name="sortie_inscription", requirements={"id": "\d+"})
+     * @param EntityManagerInterface $em
+     * @param $id
+     * @return RedirectResponse
      */
-    public function inscriptionSortie(EntityManagerInterface $em, $id)
+    public function inscriptionSortie(EntityManagerInterface $em, $id): RedirectResponse
     {
         $user = $em->getRepository(User::class)->find($this->getUser());
         $sortie = $em->getRepository(Sortie::class)->find($id);
