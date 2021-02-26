@@ -22,6 +22,7 @@ class SortieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        coucou
         $builder
             ->add('nom', TextType::class, [
                 'label' => 'Nom de la sortie :'
