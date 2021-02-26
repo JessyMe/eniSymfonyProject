@@ -100,50 +100,6 @@ class MainController extends AbstractController
                 ["user"=>$userLog,
                     "sorties"=>$sortieCampusUser
                     ]);
-
-
-
-
-
         }
 
-
-
-
-
-
-
-//        public function setEtatSortie()
-//        {
-//            $em = $this->getDoctrine()->getManager();
-//            //mise à jour état ouverte -> en cours ou cloturée
-//            $date = new \DateTime();
-//            $etat = 2;
-//            $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
-//            $sorties = $sortieRepo->findByEtat($etat);
-//            dump($sorties);
-//
-//            foreach ($sorties as $sortie){
-//                if ($sortie->getDatedebut() == $date){
-//                    $this->setEtatSortie();
-//
-//                }
-//
-//                if($sortie->getDatecloture() > $date){
-//                    $this->setEtatSortie();
-//                }
-//                $em->persist($sortie);
-//                $em->flush();
-//            }
-//            //mise à jour état en cours -> passée
-//            $etat=4;
-//            $sorties = $sorties = $sortieRepo->findByEtat($etat);
-//            foreach ($sorties as $sortie){
-//                if ($sortie->getDatedebut() > $date)
-//                    $sortie->setEtat(5);
-//                $em->persist($sortie);
-//                $em->flush();
-//            }
-//
-//        }
 }

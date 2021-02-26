@@ -1,8 +1,6 @@
 {% extends 'layout.html.twig' %}
 {%  block style %}<link rel="stylesheet" href="{{ asset('css/style_home_MOBILE.css') }}">{% endblock %}
 {% block main %}
-
-
 {#-----------------------------------------------------------------------------#}
 {#------------------- Affichage du tableau des sorties ------------------------#}
 {#-----------------------------------------------------------------------------#}
@@ -21,25 +19,22 @@
             </thead>
 {#------------------------- Tab body --------------------------------#}
             <tbody>
-            {% for sortie in sorties %}
-            <tr>
-                <td>
-                    <a href="{{ path('afficherSortie', {'id': sortie.id}) }}">{{ sortie.nom }}</a>
-                </td>
-                <td>
-                    {{ sortie.datedebut|date('d/m/y - H:i') }}
-                </td>
-                <td>
-                    {{ sortie.lieu.ville }}
-                </td>
+                {% for sortie in sorties %}
+                <tr>
+                    <td>
+                        <a href="{{ path('afficherSortie', {'id': sortie.id}) }}">{{ sortie.nom }}</a>
+                    </td>
+                    <td>
+                        {{ sortie.datedebut|date('d/m/y - H:i') }}
+                    </td>
+                    <td>
+                        {{ sortie.lieu.ville }}
+                    </td>
 
-            </tr>
-            {% endfor %}
-    </tbody>
-    </table>
-                </div>
-
-
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endif %}
-
 {% endblock %}

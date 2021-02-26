@@ -27,10 +27,7 @@ class ListSortieType extends AbstractType
             ->add('SortieOrganisateur', CheckboxType::class,['required'=>false])
             ->add('SortieInscrit', CheckboxType::class,['label'=>"Sorties auxquelles je suis inscrit/e",'required'=>false])
             ->add('SortieNonInscrit', CheckboxType::class,['label'=>"Sorties auxquelles je ne suis pas inscrit/e",'required'=>false])
-            ->add('SortiePassee', CheckboxType::class,['label'=>"Sorties passées",'required'=>false])
-
-//'label'=>"Sorties dont je suis l'organisateur/trice",
-        ;
+            ->add('SortiePassee', CheckboxType::class,['label'=>"Sorties passées",'required'=>false]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

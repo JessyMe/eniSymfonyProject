@@ -49,12 +49,12 @@ class SortieRepository extends ServiceEntityRepository
         $sortiePassee = $listFormSortie->getSortiePassee();
 
         $qb = $this->createQueryBuilder('s');
-        //sans sortie archivées
-         $nowmoins = date('y-m-d', strtotime('- 1 month'));
-         $todayConvert = DateTime::createFromFormat("y-m-d",$nowmoins,null);
+        //Exclure les sorties archivées
+        $nowmoins = date('y-m-d', strtotime('- 1 month'));
+        $todayConvert = DateTime::createFromFormat("y-m-d",$nowmoins,null);
         $qb->andwhere('s.datedebut > :todayConvert')->setParameter('todayConvert',$todayConvert);
 
-
+        //Tri avec chaque champs du formulaire si présent
         if($campus) $qb->andWhere('s.campus = :campus')->setParameter('campus',$campus);
         if($nom) $qb->andWhere('s.nom LIKE :nom')->setParameter('nom','%'.$nom.'%');
         if($datedebut && $datefin) $qb->andWhere('s.datedebut BETWEEN :datedebut AND :datefin')
@@ -69,28 +69,10 @@ class SortieRepository extends ServiceEntityRepository
             if(count($listSorties) > 0){
                 $qb->andWhere('s.id NOT IN ('.implode(',',$listSorties).')');
             }
-
         }
         if($sortiePassee) $qb->andwhere('s.etat = 5');
          $query = $qb->getQuery();
          return $query->getResult();
-
-
-
-
-
      }
-
-//     public function findByEtat (int $etat){
-//
-//        $qb = $this->createQueryBuilder('s');
-//        $qb->andWhere('s.etat = :etat ')
-//            ->setParameter('etat', $etat);
-//        $query = $qb->getQuery();
-//        return $query->getResult();
-//     }
-
-
-
 
 }
