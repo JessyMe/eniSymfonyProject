@@ -15,9 +15,7 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils, AuthorizationCheckerInterface $authorizationChecker): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+
         if ($authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED'))
         {
             return $this->redirectToRoute('main_home');
