@@ -93,4 +93,18 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_userroles');
     }
 
+    /**
+     * @Route("/deleteuser/{id}", name="admin_deleteuser", requirements={"id": "\d+"}, methods={"GET"})
+     */
+    public function deleteUser(EntityManagerInterface $em, $id): RedirectResponse
+    {
+        $user = $em->getRepository(User::class)->find($id);
+
+
+        $em->remove($user);
+        $em->flush();
+
+
+        return $this->redirectToRoute('admin_userroles');
+    }
 }

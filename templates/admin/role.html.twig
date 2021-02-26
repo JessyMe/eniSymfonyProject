@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-
+{% block title %}Gestion Utilisateurs{% endblock %}
 {% block main %}
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
         <table class="table table-bordered table-striped mb-0">
@@ -12,6 +12,7 @@
                 <th scope="col">Prénom</th>
                 <th scope="col">Role</th>
                 <th scope="col">Changer de role</th>
+                <th scope="col">Gestion</th>
             </tr>
             </thead>
     {#------------------------- Tab body --------------------------------#}
@@ -36,6 +37,9 @@
                     {% else %}
                         <a href="{{ path('admin_roleuser', {'id': user.id}) }}">Change to user</a>
                     {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('admin_deleteuser', {'id': user.id}) }}">Supprimer</a>
                 </td>
             </tr>
             {% endfor %}
